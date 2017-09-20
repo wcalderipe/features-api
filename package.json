@@ -1,0 +1,23 @@
+{
+  "name": "features-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "NODE_ENV=dev NODE_PATH=./src nodemon server.js",
+    "start:prod": "NODE_ENV=prod NODE_PATH=./src node server.js",
+    "test:integration": "NODE_ENV=test NODE_PATH=./src:./test mocha ./test/integration --recursive"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4",
+    "http-status": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "nodemon": "^1.12.1",
+    "supertest": "^3.0.0"
+  }
+}
