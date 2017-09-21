@@ -1,12 +1,10 @@
-language: "node_js"
-
+language: node_js
 node_js:
-  - "7"
-
+- '7'
 before_script:
-  - npm install
-
+- npm install
 script:
-  - npm run test:integration
-
-
+- npm run test:integration
+deploy:
+  api_key:
+    secure: FfVrfYpUZ0zpzGJMDPlwf8gyQRKLiVFcPNHwMf667D2k3FbxW42RKoA0CZ1KJLGFyCZMZuqb2rSJDKEGJWXQJ+6ww1uRmud1zNIXFG0co4xk5Orxf6ijOFIuRo4z7CAh4ip5FCwZaR4OstQKoCDzObf+rTpVBFR0ifom5ksQTgI4q/n3FzNoVW9fX1LYEWCFHCDPyfb1uOWTnCylVcGNWeuwdW/G8Rkw7w6fepQNPWvpyAHrudHV6+C+P8u24JMQaHUZETkw87Y4sAE3E7QlLU9pmZrfHhrjWoAEQic3aep/DDwSewrahqwGR/QT8fuOmptx6l+ejXsvAgdqqS9uSmmpGLsTX6aV7qR2eXnW5yUOMKyRMnRU/kEaZT2fd9V1lBFj3BWZZSWjzaVMFgQyxvlWZCrChKXYNC1WkhDWF5T4wT0cKaXuoBl81L7yo8Zz42hi6ZLsGY2qXy10QjpLNO/Y59zucqnouMSJ1A0bAI3uPiBsWmcPL8AiJ2l8ecvvP6VSXmLBDDUcklpFFHWx8DAsZ5rrAX35gcSlt7NHI9B3p+0a0hSYESxsNugcJwTBNcg09Un564c3Bh6jE1txgkC+cZ5YuoYb1c4VrDnBtjnFE46BUQGc49alDsqWsl2XZUH6+4rOypJyfBEqcmA+OTG0o0MqtVWuA5yi98KWGps=
