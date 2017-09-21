@@ -1,4 +1,8 @@
-const {expect} = require('chai')
+const chai = require('chai')
 
-module.exports = {expect}
+const {expect} = chai
+
+chai.config.includeStack = true
+
+module.exports = {chai, expect}
 
