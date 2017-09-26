@@ -6,13 +6,16 @@
   "scripts": {
     "start:dev": "NODE_ENV=dev NODE_PATH=./src nodemon server.js",
     "start:prod": "NODE_ENV=prod NODE_PATH=./src node server.js",
+    "test:unit": "NODE_ENV=test NODE_PATH=./src:./test mocha ./test/unit --recursive",
+    "test:unit:watch": "npm run test:unit -- --watch",
     "test:integration": "NODE_ENV=test NODE_PATH=./src:./test mocha ./test/integration --recursive"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.4",
-    "http-status": "^1.0.1"
+    "http-status": "^1.0.1",
+    "ramda": "^0.24.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
