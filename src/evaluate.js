@@ -1,13 +1,12 @@
-const {prop, propEq, chain, all, equals, pipe} = require('ramda')
+const {prop, propEq, chain, all, equals, pipe, map, fromPairs} = require('ramda')
 
 const evaluate = (context, features) => {
-  let data = {}
-  
-  features.forEach((feature) => {
-   data[feature.name] = checkAll(context, feature.parameters) 
-  })
+  const toNameAndValue = ({name, parameters}) => [name, checkAll(context, parameters)]
 
-  return data
+  return pipe(
+    map(toNameAndValue),
+    fromPairs
+  )(features)
 }
 
 const checkAll = (context, parameters) => {
