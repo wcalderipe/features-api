@@ -3,7 +3,7 @@ const {evaluate} = require('evaluate')
 
 const features = [
   {
-    name: 'featureForBrazil',
+    name: 'Brazil',
     parameters: [
       {
 	name: 'country',
@@ -12,7 +12,7 @@ const features = [
     ]
   },
   {
-    name: 'featureForChile',
+    name: 'Chile',
     parameters: [
       {
 	name: 'country',
@@ -22,13 +22,41 @@ const features = [
   }
 ]
 
-describe('evaluate', () => {
+describe.only('evaluate', () => {
   it('returns brazil feature enable', () => {
     const context = {country: 'br'}
     const actual = evaluate(context, features)
     const expected = {
-      featureForBrazil: true,
-      featureForChile: false
+      Brazil: true,
+      Chile: false
+    }
+
+    expect(actual).to.deep.equal(expected)
+  })
+
+  it('applies and logic operator to all parameters', () => {
+    const featuresWithMultipleParams = [
+      ...features,
+      {
+	name: 'AustraliaAndEnglish',
+	parameters: [
+	  {
+	    name: 'country',
+	    given: 'au'
+	  },
+	  {
+	    name: 'language',
+	    given: 'en'
+	  }
+	]
+      }
+    ]
+    const context = {country: 'au', language: 'es'}
+    const actual = evaluate(context, featuresWithMultipleParams)
+    const expected = {
+      Brazil: false,
+      Chile: false,
+      AustraliaAndEnglish: false 
     }
 
     expect(actual).to.deep.equal(expected)
