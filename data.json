@@ -1,0 +1,35 @@
+{
+  "name": "CoolApplication",
+  "features": [
+    {
+      "name": "newHeader",
+      "parameters": [
+	{
+	  "name": "country",
+	  "given": "us"
+	},
+	{
+	  "name": "language",
+	  "given": "en"
+	},
+	{
+	  "name": "tripType",
+	  "given": "oneway"
+	}
+      ]
+    },
+    {
+      "name": "legalMessagePE",
+      "parameters": [
+	{
+	  "name": "country",
+	  "given": "pe"
+	},
+	{
+	  "name": "language",
+	  "given": "es"
+	}
+      ]
+    }
+  ]
+}

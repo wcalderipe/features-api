@@ -22,7 +22,7 @@ const features = [
   }
 ]
 
-describe('evaluate', () => {
+describe.only('evaluate', () => {
   it('returns brazil feature enable', () => {
     const context = {country: 'br'}
     const actual = evaluate(context, features)
