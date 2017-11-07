@@ -6,6 +6,7 @@ const features = [
     name: 'Brazil',
     parameters: [
       {
+	type: 'string',
 	name: 'country',
 	given: 'br'
       }
@@ -15,6 +16,7 @@ const features = [
     name: 'Chile',
     parameters: [
       {
+	type: 'string',
 	name: 'country',
 	given: 'cl'
       }
@@ -34,17 +36,19 @@ describe.only('evaluate', () => {
     expect(actual).to.deep.equal(expected)
   })
 
-  it('applies and logic operator to all parameters', () => {
+  it('applies AND logic operator to all parameters', () => {
     const featuresWithMultipleParams = [
       ...features,
       {
 	name: 'AustraliaAndEnglish',
 	parameters: [
 	  {
+	    type: 'string',
 	    name: 'country',
 	    given: 'au'
 	  },
 	  {
+	    type: 'string',
 	    name: 'language',
 	    given: 'en'
 	  }
@@ -60,5 +64,31 @@ describe.only('evaluate', () => {
     }
 
     expect(actual).to.deep.equal(expected)
+  })
+
+  context('list type', () => {
+    const features = [
+      {
+	name: 'forPEorCO',
+	parameters: [
+	  {
+	    type: 'list',
+	    name: 'country',
+	    in: ['pe', 'co']
+	  }
+	]
+      }
+    ]
+
+    it('returns true if the context value is included', () => {
+      const contextForPE = {country: 'pe'}
+      const actualForPe = evaluate(contextForPE, features)
+      const contextForCO = {country: 'co'}
+      const actualForCO = evaluate(contextForCO, features)
+      const expected = {forPEorCO: true}
+
+      expect(actualForPe).to.deep.equal(expected)
+      expect(actualForCO).to.deep.equal(expected)
+    })
   })
 })
