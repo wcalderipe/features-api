@@ -1,3 +1,3 @@
-const features = require('./features')
+import * as features from './features'
 
-module.exports = {features}
+export default {features}

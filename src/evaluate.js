@@ -1,4 +1,4 @@
-const {prop, propEq, chain, all, equals, pipe, map, fromPairs} = require('ramda')
+import {prop, propEq, chain, all, equals, pipe, map, fromPairs} from 'ramda'
 
 const evaluate = (context, features) => {
   const toNameAndValue = ({name, parameters}) => [name, checkAll(context, parameters)]
@@ -27,5 +27,5 @@ const check = (context) => (parameter) => {
   return isSatisfied(context)
 }
 
-module.exports = {evaluate}
+export {evaluate}
 
