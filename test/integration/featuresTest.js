@@ -1,7 +1,7 @@
-const httpStatus = require('http-status')
-const request = require('supertest')
-const {expect} = require('../testSetup')
-const app = require('../../src/app')
+import httpStatus from 'http-status'
+import request from 'supertest'
+import {expect} from '../testSetup'
+import app from '../../src/app'
 
 describe('GET /features', () => {
   it('returns status 200', () => {
