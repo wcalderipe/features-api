@@ -1,7 +1,7 @@
 const httpStatus = require('http-status')
 const request = require('supertest')
-const {expect} = require('testSetup')
-const app = require('app')
+const {expect} = require('../testSetup')
+const app = require('../../src/app')
 
 describe('GET /health', () => {
   it('returns status 200 and ok response body', () => {

@@ -1,5 +1,5 @@
-const {expect} = require('testSetup')
-const {evaluate} = require('evaluate')
+const {expect} = require('../testSetup')
+const {evaluate} = require('../../src/evaluate')
 
 const features = [
   {

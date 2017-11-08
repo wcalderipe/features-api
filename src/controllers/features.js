@@ -1,4 +1,4 @@
-const {evaluate} = require('evaluate')
+const {evaluate} = require('../evaluate')
 const data = require('../../data.json')
 
 const get = (req, res) => {
