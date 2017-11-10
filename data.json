@@ -5,15 +5,15 @@
       "name": "newHeader",
       "parameters": [
 	{
-	  "type": "string",
-	  "name": "country",
-	  "given": "us"
-	},
-	{
 	  "type": "list",
-	  "name": "language",
-	  "presentIn": ["en", "de"]
-	},
+	  "name": "tripType",
+	  "presentIn": ["roundtrip", "oneway"]
+	}
+      ]
+    },
+    {
+      "name": "callNewAPI",
+      "parameters": [
 	{
 	  "type": "string",
 	  "name": "tripType",
@@ -22,17 +22,11 @@
       ]
     },
     {
-      "name": "legalMessagePE",
+      "name": "appEnable",
       "parameters": [
 	{
-	  "type": "string",
-	  "name": "country",
-	  "given": "pe"
-	},
-	{
-	  "type": "string",
-	  "name": "language",
-	  "given": "es"
+	  "type": "always",
+	  "returns": true
 	}
       ]
     }
