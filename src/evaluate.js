@@ -1,4 +1,4 @@
-import {prop, propEq, chain, all, equals, pipe, map, fromPairs} from 'ramda'
+import {chain, all, equals, pipe, map, fromPairs} from 'ramda'
 import checkers from './checkers'
 
 const evaluate = (context, features) => {
@@ -22,7 +22,6 @@ const checkAll = (context, parameters) => {
 
 const invokeCheck = (context) => (parameter) =>
   checkers[parameter.type].check(parameter, context)
-
 
 export {evaluate}
 

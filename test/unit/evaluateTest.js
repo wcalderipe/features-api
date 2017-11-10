@@ -6,9 +6,9 @@ const features = [
     name: 'Brazil',
     parameters: [
       {
-	type: 'string',
-	name: 'country',
-	given: 'br'
+        type: 'string',
+        name: 'country',
+        given: 'br'
       }
     ]
   },
@@ -16,9 +16,9 @@ const features = [
     name: 'Chile',
     parameters: [
       {
-	type: 'string',
-	name: 'country',
-	given: 'cl'
+        type: 'string',
+        name: 'country',
+        given: 'cl'
       }
     ]
   }
@@ -40,19 +40,19 @@ describe('evaluate', () => {
     const featuresWithMultipleParams = [
       ...features,
       {
-	name: 'AustraliaAndEnglish',
-	parameters: [
-	  {
-	    type: 'string',
-	    name: 'country',
-	    given: 'au'
-	  },
-	  {
-	    type: 'string',
-	    name: 'language',
-	    given: 'en'
-	  }
-	]
+        name: 'AustraliaAndEnglish',
+        parameters: [
+          {
+            type: 'string',
+            name: 'country',
+            given: 'au'
+          },
+          {
+            type: 'string',
+            name: 'language',
+            given: 'en'
+          }
+        ]
       }
     ]
     const context = {country: 'au', language: 'es'}
@@ -60,7 +60,7 @@ describe('evaluate', () => {
     const expected = {
       Brazil: false,
       Chile: false,
-      AustraliaAndEnglish: false 
+      AustraliaAndEnglish: false
     }
 
     expect(actual).to.deep.equal(expected)
@@ -69,19 +69,19 @@ describe('evaluate', () => {
   context('list type', () => {
     const features = [
       {
-	name: 'forPEorCO',
-	parameters: [
-	  {
-	    type: 'list',
-	    name: 'country',
-	    presentIn: ['pe', 'co']
-	  },
-	  {
-	    type: 'string',
-	    name: 'language',
-	    given: 'es'
-	  }
-	]
+        name: 'forPEorCO',
+        parameters: [
+          {
+            type: 'list',
+            name: 'country',
+            presentIn: ['pe', 'co']
+          },
+          {
+            type: 'string',
+            name: 'language',
+            given: 'es'
+          }
+        ]
       }
     ]
 

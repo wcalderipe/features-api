@@ -5,7 +5,7 @@ const check = (parameter, context) => {
   const value = prop(name, context)
   const isPresent = presentIn.includes(value)
 
-  return isPresent 
+  return isPresent
 }
 
 export default {check}

@@ -14,6 +14,7 @@
   "scripts": {
     "start:dev": "NODE_ENV=dev nodemon -r @std/esm server.js",
     "start:prod": "NODE_ENV=prod node -r @std/esm server.js",
+    "lint": "eslint src test",
     "test:unit": "NODE_ENV=test mocha ./test/unit --require @std/esm --recursive",
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:integration": "NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
@@ -29,6 +30,13 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.11.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "mocha": "^3.5.3",
     "nodemon": "^1.12.1",
     "supertest": "^3.0.0"
