@@ -7,13 +7,13 @@ describe('string type check', () => {
     given: 'br'
   }
 
-  it('returns true if context satisfy the feature parameters', () => {
+  it('returns true if country context satisfy the param given value', () => {
     const context = {country: 'br'}
 
     expect(string.check(parameter, context)).to.equal(true)
   })
 
-  it('returns false if context does not satisfy the feature parameter', () => {
+  it('returns false if country context does not satisfy the param given value', () => {
     const context = {country: 'de'}
 
     expect(string.check(parameter, context)).to.equal(false)

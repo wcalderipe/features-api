@@ -1,8 +1,6 @@
 import {prop, propEq, chain, all, equals, pipe, map, fromPairs} from 'ramda'
 import checkers from './checkers'
 
-console.dir(checkers, {depth: null})
-
 const evaluate = (context, features) => {
   const toNameAndValue = ({name, parameters}) => [name, checkAll(context, parameters)]
 
