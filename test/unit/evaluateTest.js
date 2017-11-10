@@ -24,7 +24,7 @@ const features = [
   }
 ]
 
-describe.only('evaluate', () => {
+describe('evaluate', () => {
   it('returns brazil feature enable', () => {
     const context = {country: 'br'}
     const actual = evaluate(context, features)
@@ -66,7 +66,7 @@ describe.only('evaluate', () => {
     expect(actual).to.deep.equal(expected)
   })
 
-  context('list type', () => {
+  context.skip('list type', () => {
     const features = [
       {
 	name: 'forPEorCO',

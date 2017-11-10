@@ -1,4 +1,7 @@
 import {prop, propEq, chain, all, equals, pipe, map, fromPairs} from 'ramda'
+import checkers from './checkers'
+
+console.dir(checkers, {depth: null})
 
 const evaluate = (context, features) => {
   const toNameAndValue = ({name, parameters}) => [name, checkAll(context, parameters)]
@@ -15,36 +18,13 @@ const checkAll = (context, parameters) => {
 
   return pipe(
     checkedParameters,
-    (args) => {
-      console.log(args)
-      return args
-    },
     isAllSatisfied
   )(parameters)
 }
 
-const invokeCheck = (context) => (parameter) => checkers[parameter.type](parameter)
+const invokeCheck = (context) => (parameter) =>
+  checkers[parameter.type].check(parameter, context)
 
-const checkers = {
-  string: (parameter) => {
-    const {name, given} = parameter
-    const value = prop(name, context)
-    const isSatisfied = propEq(name, given)
-
-    return isSatisfied(context)
-  },
-  list: (parameter) => {
-    return true
-  }
-}
-
-const check = (context) => (parameter) => {
-  const {name, given} = parameter
-  const value = prop(name, context)
-  const isSatisfied = propEq(name, given)
-
-  return isSatisfied(context)
-}
 
 export {evaluate}
 
