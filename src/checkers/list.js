@@ -1,9 +1,9 @@
-import {prop, indexOf} from 'ramda'
+import {prop} from 'ramda'
 
 const check = (parameter, context) => {
   const {name, presentIn} = parameter
   const value = prop(name, context)
-  const isPresent = indexOf(value, presentIn) !== -1
+  const isPresent = presentIn.includes(value)
 
   return isPresent 
 }
