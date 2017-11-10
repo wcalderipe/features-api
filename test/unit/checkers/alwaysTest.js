@@ -1,7 +1,7 @@
 import {expect} from '../../testSetup'
 import always from '../../../src/checkers/always'
 
-describe.only('always type', () => {
+describe('always type', () => {
   it('returns true', () => {
     const parameter = {
       type: 'always',
