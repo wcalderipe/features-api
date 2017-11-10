@@ -66,7 +66,7 @@ describe('evaluate', () => {
     expect(actual).to.deep.equal(expected)
   })
 
-  context.skip('list type', () => {
+  context('list type', () => {
     const features = [
       {
 	name: 'forPEorCO',
@@ -74,16 +74,21 @@ describe('evaluate', () => {
 	  {
 	    type: 'list',
 	    name: 'country',
-	    in: ['pe', 'co']
+	    presentIn: ['pe', 'co']
+	  },
+	  {
+	    type: 'string',
+	    name: 'language',
+	    given: 'es'
 	  }
 	]
       }
     ]
 
     it('returns true if the context value is included', () => {
-      const contextForPE = {country: 'pe'}
+      const contextForPE = {country: 'pe', language: 'es'}
       const actualForPe = evaluate(contextForPE, features)
-      const contextForCO = {country: 'co'}
+      const contextForCO = {country: 'co', language: 'es'}
       const actualForCO = evaluate(contextForCO, features)
       const expected = {forPEorCO: true}
 
