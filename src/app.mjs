@@ -1,6 +1,6 @@
-const httpStatus = require('http-status')
-const express = require('express')
-const controllers = require('./controllers')
+import httpStatus from 'http-status'
+import express from 'express'
+import controllers from './controllers'
 
 const app = express()
 
@@ -10,5 +10,5 @@ app.get('/health', (req, res) => {
 
 app.get('/features', controllers.features.get)
 
-module.exports = app
+export default app
 

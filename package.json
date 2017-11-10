@@ -3,16 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "8.9.0",
+    "npm": "5.5.1"
+  },
+  "@std/esm": {
+    "esm": "all",
+    "cjs": true
+  },
   "scripts": {
-    "start:dev": "NODE_ENV=dev NODE_PATH=./src nodemon server.js",
-    "start:prod": "NODE_ENV=prod NODE_PATH=./src node server.js",
-    "test:unit": "NODE_ENV=test NODE_PATH=./src:./test mocha ./test/unit --recursive",
+    "start:dev": "NODE_ENV=dev nodemon -r @std/esm server.js",
+    "start:prod": "NODE_ENV=prod node -r @std/esm server.js",
+    "test:unit": "NODE_ENV=test mocha ./test/unit --require @std/esm --recursive",
     "test:unit:watch": "npm run test:unit -- --watch",
-    "test:integration": "NODE_ENV=test NODE_PATH=./src:./test mocha ./test/integration --recursive"
+    "test:integration": "NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
+    "test": "npm run test:unit && npm run test:integration"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@std/esm": "^0.13.0",
     "express": "^4.15.4",
     "http-status": "^1.0.1",
     "ramda": "^0.24.1"

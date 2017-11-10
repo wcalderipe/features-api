@@ -1,5 +1,5 @@
-const {evaluate} = require('evaluate')
-const data = require('../../data.json')
+import {evaluate} from '../evaluate'
+import data from '../../data.json'
 
 const get = (req, res) => {
   const context = req.query
@@ -8,4 +8,4 @@ const get = (req, res) => {
   return res.json({features})
 }
 
-module.exports = {get}
+export {get}
