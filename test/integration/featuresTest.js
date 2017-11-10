@@ -1,6 +1,5 @@
 import {OK} from 'http-status'
 import request from 'supertest'
-import {expect} from '../testSetup'
 import app from '../../src/app'
 
 describe('GET /features', () => {

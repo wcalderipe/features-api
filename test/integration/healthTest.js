@@ -9,7 +9,7 @@ describe('GET /health', () => {
       .get('/health')
       .expect(httpStatus.OK)
       .then((response) => {
-	expect(response.body).to.deep.equal({ok: true})
+        expect(response.body).to.deep.equal({ok: true})
       })
   })
 })

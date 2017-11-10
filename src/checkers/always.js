@@ -1,5 +1,3 @@
-import {prop} from 'ramda'
-
-const check = (parameter, context) => parameter.returns
+const check = (parameter) => parameter.returns
 
 export default {check}

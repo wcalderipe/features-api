@@ -5,7 +5,7 @@ describe('always type', () => {
   it('returns true', () => {
     const parameter = {
       type: 'always',
-      returns: true 
+      returns: true
     }
 
     const context = {}
@@ -16,7 +16,7 @@ describe('always type', () => {
   it('returns false', () => {
     const parameter = {
       type: 'always',
-      returns: false 
+      returns: false
     }
 
     const context = {}
@@ -24,5 +24,4 @@ describe('always type', () => {
     expect(always.check(parameter, context)).to.equal(false)
   })
 })
-
 
