@@ -5,14 +5,17 @@
       "name": "newHeader",
       "parameters": [
 	{
+	  "type": "string",
 	  "name": "country",
 	  "given": "us"
 	},
 	{
+	  "type": "list",
 	  "name": "language",
-	  "given": "en"
+	  "presentIn": ["en", "de"]
 	},
 	{
+	  "type": "string",
 	  "name": "tripType",
 	  "given": "oneway"
 	}
@@ -22,10 +25,12 @@
       "name": "legalMessagePE",
       "parameters": [
 	{
+	  "type": "string",
 	  "name": "country",
 	  "given": "pe"
 	},
 	{
+	  "type": "string",
 	  "name": "language",
 	  "given": "es"
 	}

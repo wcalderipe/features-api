@@ -1,13 +1,21 @@
-import httpStatus from 'http-status'
+import {OK} from 'http-status'
 import request from 'supertest'
 import {expect} from '../testSetup'
 import app from '../../src/app'
 
 describe('GET /features', () => {
   it('returns status 200', () => {
+    const queryParams = {
+      application: 'CoolApplication',
+      country: 'us',
+      language: 'en',
+      tripType: 'oneway'
+    }
+
     return request(app)
       .get('/features')
-      .expect(httpStatus.OK)
+      .query(queryParams)
+      .expect(OK)
   })
 })
 
