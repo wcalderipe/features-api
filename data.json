@@ -4,30 +4,30 @@
     {
       "name": "newHeader",
       "parameters": [
-	{
-	  "type": "list",
-	  "name": "tripType",
-	  "presentIn": ["roundtrip", "oneway"]
-	}
+        {
+          "type": "list",
+          "name": "tripType",
+          "presentIn": ["roundtrip", "oneway"]
+        }
       ]
     },
     {
       "name": "callNewAPI",
       "parameters": [
-	{
-	  "type": "string",
-	  "name": "tripType",
-	  "given": "oneway"
-	}
+        {
+          "type": "string",
+          "name": "tripType",
+          "given": "oneway"
+        }
       ]
     },
     {
       "name": "appEnable",
       "parameters": [
-	{
-	  "type": "always",
-	  "returns": true
-	}
+        {
+          "type": "always",
+          "returns": true
+        }
       ]
     }
   ]
