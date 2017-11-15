@@ -1,9 +1,9 @@
 import {find, propEq} from 'ramda'
 import {NOT_FOUND} from 'http-status'
-import {evaluate} from '../evaluate'
+import {evaluate as defaultEvaluate} from '../evaluate'
 import data from '../../data.json'
 
-const get = (defaultEvaluate = evaluate) => (req, res) => {
+const get = (evaluate = defaultEvaluate) => (req, res) => {
   const context = req.query
   const applicationName = context.application
   const application = find(propEq('name', applicationName), data)
@@ -14,7 +14,7 @@ const get = (defaultEvaluate = evaluate) => (req, res) => {
     })
   }
 
-  const features = defaultEvaluate(context, application.features)
+  const features = evaluate(context, application.features)
 
   return res.json({features})
 }
