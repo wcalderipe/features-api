@@ -1,34 +1,50 @@
-{
-  "name": "CoolApplication",
-  "features": [
-    {
-      "name": "newHeader",
-      "parameters": [
-	{
-	  "type": "list",
-	  "name": "tripType",
-	  "presentIn": ["roundtrip", "oneway"]
-	}
-      ]
-    },
-    {
-      "name": "callNewAPI",
-      "parameters": [
-	{
-	  "type": "string",
-	  "name": "tripType",
-	  "given": "oneway"
-	}
-      ]
-    },
-    {
-      "name": "appEnable",
-      "parameters": [
-	{
-	  "type": "always",
-	  "returns": true
-	}
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "SampleApp",
+    "features": [
+      {
+        "name": "newHeader",
+        "parameters": [
+          {
+            "type": "list",
+            "name": "tripType",
+            "presentIn": ["roundtrip", "oneway"]
+          }
+        ]
+      },
+      {
+        "name": "callNewAPI",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "tripType",
+            "given": "oneway"
+          }
+        ]
+      },
+      {
+        "name": "appEnable",
+        "parameters": [
+          {
+            "type": "always",
+            "returns": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "OtherApp",
+    "features": [
+      {
+        "name": "appEnable",
+        "parameters": [
+          {
+            "type": "always",
+            "returns": false
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -5,7 +5,7 @@ import app from '../../src/app'
 describe('GET /features', () => {
   it('returns status 200', () => {
     const queryParams = {
-      application: 'CoolApplication',
+      application: 'SampleApp',
       country: 'us',
       language: 'en',
       tripType: 'oneway'
