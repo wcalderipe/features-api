@@ -1,6 +1,7 @@
+import {find, propEq} from 'ramda'
+import {NOT_FOUND} from 'http-status'
 import {evaluate} from '../evaluate'
 import data from '../../data.json'
-import {find, propEq} from 'ramda'
 
 const get = (defaultEvaluate = evaluate) => (req, res) => {
   const context = req.query
@@ -8,7 +9,7 @@ const get = (defaultEvaluate = evaluate) => (req, res) => {
   const application = find(propEq('name', applicationName), data)
 
   if (!application) {
-    return res.status(404).json({
+    return res.status(NOT_FOUND).json({
       code: 'ERR_APPLICATION_NOT_FOUND'
     })
   }

@@ -1,3 +1,4 @@
+import {NOT_FOUND} from 'http-status'
 import td from 'testdouble'
 import {get} from '../../../src/controllers/features'
 
@@ -35,7 +36,7 @@ describe('features controller', () => {
       }
       const fakeEvaluate = () => {}
 
-      td.when(res.status(404)).thenReturn(res)
+      td.when(res.status(NOT_FOUND)).thenReturn(res)
 
       get(fakeEvaluate)(req, res)
 
