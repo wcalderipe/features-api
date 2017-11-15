@@ -1,3 +1,3 @@
-import * as features from './features'
+import * as toggles from './toggles'
 
-export default {features}
+export default {toggles}

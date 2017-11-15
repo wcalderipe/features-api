@@ -8,7 +8,7 @@ app.get('/health', (req, res) => {
   return res.status(httpStatus.OK).json({ok: true})
 })
 
-app.get('/features', controllers.features.get())
+app.get('/toggles', controllers.toggles.get())
 
 export default app
 

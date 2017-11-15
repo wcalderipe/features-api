@@ -14,9 +14,9 @@ const get = (evaluate = defaultEvaluate) => (req, res) => {
     })
   }
 
-  const features = evaluate(context, application.features)
+  const toggles = evaluate(context, application.features)
 
-  return res.json({features})
+  return res.json({toggles})
 }
 
 export {get}
