@@ -3,14 +3,16 @@ import td from 'testdouble'
 import {get} from '../../../src/controllers/features'
 
 describe('features controller', () => {
+  const res = {
+    json: td.function(),
+    status: td.function()
+  }
+
   it('calls res.json with features', () => {
     const req = {
       query: {
         application: 'SampleApp'
       }
-    }
-    const res = {
-      json: td.function()
     }
     const expectedFeatures = {
       someFeature: true,
@@ -30,19 +32,13 @@ describe('features controller', () => {
           application: 'NotFoundApp'
         }
       }
-      const res = {
-        json: td.function(),
-        status: td.function()
-      }
       const fakeEvaluate = () => {}
 
       td.when(res.status(NOT_FOUND)).thenReturn(res)
 
       get(fakeEvaluate)(req, res)
 
-      td.verify(res.json({
-        code: 'ERR_APPLICATION_NOT_FOUND'
-      }))
+      td.verify(res.json({code: 'ERR_APPLICATION_NOT_FOUND'}))
     })
   })
 })
