@@ -1,28 +1,28 @@
 import {NOT_FOUND} from 'http-status'
 import td from 'testdouble'
-import {get} from '../../../src/controllers/features'
+import {get} from '../../../src/controllers/toggles'
 
-describe('features controller', () => {
+describe('toggles controller', () => {
   const res = {
     json: td.function(),
     status: td.function()
   }
 
-  it('calls res.json with features', () => {
+  it('calls res.json with evaluated toggles', () => {
     const req = {
       query: {
         application: 'SampleApp'
       }
     }
-    const expectedFeatures = {
+    const expectedToggles = {
       someFeature: true,
       otherFeature: false
     }
-    const fakeEvaluate = () => expectedFeatures
+    const fakeEvaluate = () => expectedToggles
 
     get(fakeEvaluate)(req, res)
 
-    td.verify(res.json({features: expectedFeatures}))
+    td.verify(res.json({toggles: expectedToggles}))
   })
 
   context('when application is not found', () => {

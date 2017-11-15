@@ -25,7 +25,7 @@ const features = [
 ]
 
 describe('evaluate', () => {
-  it('returns brazil feature enable', () => {
+  it('returns brazil toggle enable', () => {
     const context = {country: 'br'}
     const actual = evaluate(context, features)
     const expected = {
