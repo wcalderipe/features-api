@@ -13,7 +13,7 @@ exports.up = (knex, Promise) => Promise.all([
   knex.schema.createTable('parameters', (table) => {
     table.increments('id').primary()
     table.integer('feature_id').references('features.id')
-    table.string('json').notNullable()
+    table.text('rule_json').notNullable()
     table.timestamp('created_at').defaultTo(knex.fn.now())
   })
 ])
@@ -23,5 +23,4 @@ exports.down = (knex, Promise) => Promise.all([
   knex.schema.dropTable('features'),
   knex.schema.dropTable('parameters')
 ])
-
 

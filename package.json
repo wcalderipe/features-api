@@ -12,6 +12,9 @@
     "cjs": true
   },
   "scripts": {
+    "db:migrate": "knex migrate:latest",
+    "db:seed": "knex seed:run",
+    "db:setup": "npm run db:migrate && npm run db:seed",
     "start:dev": "NODE_ENV=dev nodemon -r @std/esm server.js",
     "start:prod": "NODE_ENV=prod node -r @std/esm server.js",
     "lint": "eslint src test",
