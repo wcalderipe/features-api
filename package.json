@@ -18,10 +18,10 @@
     "start:dev": "NODE_ENV=dev nodemon -r @std/esm server.js",
     "start:prod": "NODE_ENV=prod node -r @std/esm server.js",
     "lint": "eslint src test",
+    "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test mocha ./test/unit --require @std/esm --recursive",
-    "test:unit:watch": "npm run test:unit -- --watch",
     "test:integration": "NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
-    "test": "npm run test:unit && npm run test:integration"
+    "test-watch:unit": "npm run test:unit -- --watch"
   },
   "author": "",
   "license": "ISC",
