@@ -20,7 +20,7 @@
     "lint": "eslint src test",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test mocha ./test/unit --require @std/esm --recursive",
-    "test:integration": "NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
+    "test:integration": "NODE_ENV=test npm run db:setup && NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
     "test-watch:unit": "npm run test:unit -- --watch"
   },
   "author": "",
