@@ -22,4 +22,3 @@ exports.seed = (knex) => Promise.all([
   features(knex)
 ])
 
-
