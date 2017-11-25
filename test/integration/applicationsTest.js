@@ -21,5 +21,24 @@ describe('applications router', () => {
         })
     })
   })
+
+  describe('GET /applications/:id', () => {
+    it('returns status 200', () => {
+      return request(app)
+        .get('/applications/1')
+        .expect(OK)
+    })
+
+    it('returns a single application', () => {
+      return request(app)
+        .get('/applications/1')
+        .then((response) => {
+          const {application} = response.body
+
+          expect(application).to.have.property('id')
+          expect(application).to.have.property('name')
+        })
+    })
+  })
 })
 

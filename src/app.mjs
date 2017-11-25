@@ -16,6 +16,7 @@ app.get('/health', (req, res) => {
 app.get('/toggles', controllers.toggles.get())
 
 app.get('/applications', controllers.applications.list(applicationRepository(knex)))
+app.get('/applications/:id', controllers.applications.show(applicationRepository(knex)))
 
 export default app
 

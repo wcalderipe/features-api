@@ -19,4 +19,22 @@ describe('application repository', () => {
         })
     })
   })
+
+  describe('findById', () => {
+    it('resolves with a single application', () => {
+      const expectedApplication = {name: 'SampleApp'}
+      const fakeKnex = td.function()
+      const fakeWhere = td.function()
+      const fakeFirst = td.function()
+
+      td.when(fakeKnex('applications')).thenReturn({where: fakeWhere})
+      td.when(fakeWhere({id: 1})).thenReturn({first: fakeFirst})
+      td.when(fakeFirst()).thenResolve(expectedApplication)
+
+      return applicationRepository(fakeKnex).findById(1)
+        .then((application) => {
+          expect(application).to.deep.equal(expectedApplication)
+        })
+    })
+  })
 })
