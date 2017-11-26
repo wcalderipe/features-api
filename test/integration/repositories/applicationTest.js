@@ -10,7 +10,7 @@ describe('application repository', () => {
     it('retrieves a list of applications from database', () => {
       return applicationRepository(knex).findAll()
         .then((applications) => {
-          expect(applications.length).to.equal(2)
+          expect(applications).to.be.an('array')
         })
     })
   })
@@ -21,6 +21,16 @@ describe('application repository', () => {
         .then((application) => {
           expect(application).to.have.property('id')
           expect(application).to.have.property('name')
+        })
+    })
+  })
+
+  describe('create', () => {
+    it('inserts a new application in the database and returns the ids', () => {
+      return applicationRepository(knex).create({name: 'NewApplication'})
+        .then((ids) => {
+          expect(ids.length).to.equal(1)
+          expect(ids[0]).to.be.an('number')
         })
     })
   })

@@ -1,4 +1,4 @@
-import {OK} from 'http-status'
+import {OK, CREATED} from 'http-status'
 import request from 'supertest'
 import {expect} from '../testSetup'
 import app from '../../src/app'
@@ -37,6 +37,28 @@ describe('applications router', () => {
 
           expect(application).to.have.property('id')
           expect(application).to.have.property('name')
+        })
+    })
+  })
+
+  describe('POST /applications', () => {
+    const application = {
+      name: 'NewApplication'
+    }
+
+    it('returns status 201', () => {
+      return request(app)
+        .post('/applications')
+        .send(application)
+        .expect(CREATED)
+    })
+
+    it('returns created application id', () => {
+      return request(app)
+        .post('/applications')
+        .send(application)
+        .then((response) => {
+          expect(response.body).to.have.property('id')
         })
     })
   })

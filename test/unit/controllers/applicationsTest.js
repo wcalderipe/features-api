@@ -1,5 +1,6 @@
+import {CREATED} from 'http-status'
 import td from 'testdouble'
-import {list, show} from '../../../src/controllers/applications'
+import {list, show, create} from '../../../src/controllers/applications'
 
 describe('applications controller', () => {
   const res = {
@@ -37,6 +38,29 @@ describe('applications controller', () => {
       return show(fakeRepository)(req, res)
         .then(() => {
           td.verify(res.json({application: expectedApplication}))
+        })
+    })
+  })
+
+  describe('create', () => {
+    it('calls res.status with 201 status code', () => {
+      const fakeRepository = {
+        create: td.function()
+      }
+      const req = {
+        body: {name: 'NewApplication'}
+      }
+      const res = {
+        status: td.function(),
+        json: td.function()
+      }
+
+      td.when(res.status(CREATED)).thenReturn(res)
+      td.when(fakeRepository.create(req.body)).thenResolve([999])
+
+      return create(fakeRepository)(req, res)
+        .then(() => {
+          td.verify(res.json({id: 999}))
         })
     })
   })

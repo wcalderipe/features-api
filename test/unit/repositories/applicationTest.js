@@ -37,4 +37,22 @@ describe('application repository', () => {
         })
     })
   })
+
+  describe('create', () => {
+    it('resolves with the created application id', () => {
+      const application = {name: 'SomeApplication'}
+      const fakeKnex = td.function()
+      const fakeInsert = td.function()
+      const fakeReturning = td.function()
+
+      td.when(fakeKnex('applications')).thenReturn({insert: fakeInsert})
+      td.when(fakeInsert(application)).thenReturn({returning: fakeReturning})
+      td.when(fakeReturning('id')).thenResolve(999)
+
+      return applicationRepository(fakeKnex).create(application)
+        .then((id) => {
+          expect(id).to.deep.equal(999)
+        })
+    })
+  })
 })

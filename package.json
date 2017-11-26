@@ -20,13 +20,14 @@
     "lint": "eslint src test",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test mocha ./test/unit --require @std/esm --recursive",
-    "test:integration": "NODE_ENV=test npm run db:setup && NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
+    "test:integration": "rm -f db/test.sqlite3 && NODE_ENV=test npm run db:setup && NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
     "test-watch:unit": "npm run test:unit -- --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@std/esm": "^0.13.0",
+    "body-parser": "^1.18.2",
     "express": "^4.15.4",
     "http-status": "^1.0.1",
     "knex": "^0.14.0",
