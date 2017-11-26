@@ -55,4 +55,23 @@ describe('application repository', () => {
         })
     })
   })
+
+  describe('update', () => {
+    it('resolves with the number of applications affected', () => {
+      const application = {name: 'UpdatedApp'}
+      const fakeKnex = td.function()
+      const fakeWhere = td.function()
+      const fakeUpdate = td.function()
+
+      td.when(fakeKnex('applications')).thenReturn({where: fakeWhere})
+      td.when(fakeWhere({id: 1})).thenReturn({update: fakeUpdate})
+      td.when(fakeUpdate({name: 'UpdatedApp'})).thenResolve(1)
+
+      return applicationRepository(fakeKnex).update(1, application)
+        .then((affectedRows) => {
+          expect(affectedRows).to.equal(1)
+        })
+    })
+  })
 })
+

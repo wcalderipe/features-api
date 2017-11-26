@@ -7,7 +7,7 @@ const knex = Knex(knexfile.test)
 
 describe('application repository', () => {
   describe('findAll', () => {
-    it('retrieves a list of applications from database', () => {
+    it('retrieves a list of applications', () => {
       return applicationRepository(knex).findAll()
         .then((applications) => {
           expect(applications).to.be.an('array')
@@ -16,7 +16,7 @@ describe('application repository', () => {
   })
 
   describe('findById', () => {
-    it('retrieves a single application from database', () => {
+    it('retrieves a single application', () => {
       return applicationRepository(knex).findById(1)
         .then((application) => {
           expect(application).to.have.property('id')
@@ -26,11 +26,20 @@ describe('application repository', () => {
   })
 
   describe('create', () => {
-    it('inserts a new application in the database and returns the ids', () => {
+    it('inserts a new application and returns the ids', () => {
       return applicationRepository(knex).create({name: 'NewApplication'})
         .then((ids) => {
           expect(ids.length).to.equal(1)
           expect(ids[0]).to.be.an('number')
+        })
+    })
+  })
+
+  describe('update', () => {
+    it('updates application and returns the number of affected rows', () => {
+      return applicationRepository(knex).update(1, {name: 'UpdatedApp'})
+        .then((affectedRows) => {
+          expect(affectedRows).to.equal(1)
         })
     })
   })
