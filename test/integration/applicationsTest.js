@@ -62,5 +62,32 @@ describe('applications router', () => {
         })
     })
   })
+
+  const updateSuite = (httpVerb) => () => {
+    const application = {
+      name: 'UpdatedApp'
+    }
+
+    it('returns status 200', () => {
+      const requestBuilder = request(app)
+
+      return requestBuilder[httpVerb]('/applications/1')
+        .send(application)
+        .expect(OK)
+    })
+
+    it('returns updated application id', () => {
+      const requestBuilder = request(app)
+
+      return requestBuilder[httpVerb]('/applications/1')
+        .send(application)
+        .then((response) => {
+          expect(response.body).to.have.property('application')
+        })
+    })
+  }
+
+  describe('PUT /applications', updateSuite('put'))
+  describe('PATCH /applications', updateSuite('patch'))
 })
 

@@ -25,5 +25,18 @@ const create = (repository) => (req, res) => {
     })
 }
 
-export {list, show, create}
+const update = (repository) => (req, res) => {
+  const {id} = req.params
+  const payload = req.body
+
+  return repository.update(id, payload)
+    .then(() => {
+      return repository.findById(id)
+        .then((application) => {
+          return res.json({application})
+        })
+    })
+}
+
+export {list, show, create, update}
 

@@ -23,6 +23,8 @@ app.get('/toggles', controllers.toggles.get())
 app.get('/applications', controllers.applications.list(applicationRepository(knex)))
 app.get('/applications/:id', controllers.applications.show(applicationRepository(knex)))
 app.post('/applications', controllers.applications.create(applicationRepository(knex)))
+app.put('/applications/:id', controllers.applications.update(applicationRepository(knex)))
+app.patch('/applications/:id', controllers.applications.update(applicationRepository(knex)))
 
 export default app
 

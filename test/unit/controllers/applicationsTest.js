@@ -1,6 +1,6 @@
 import {CREATED} from 'http-status'
 import td from 'testdouble'
-import {list, show, create} from '../../../src/controllers/applications'
+import {list, show, create, update} from '../../../src/controllers/applications'
 
 describe('applications controller', () => {
   const res = {
@@ -61,6 +61,32 @@ describe('applications controller', () => {
       return create(fakeRepository)(req, res)
         .then(() => {
           td.verify(res.json({id: 999}))
+        })
+    })
+  })
+
+  describe('update', () => {
+    it('calls res.json with updated application', () => {
+      const fakeRepository = {
+        update: td.function(),
+        findById: td.function()
+      }
+      const req = {
+        params: {id: 1},
+        body: {name: 'UpdateApp'}
+      }
+      const res = {
+        json: td.function()
+      }
+
+      td.when(fakeRepository.update(1, req.body)).thenResolve(1)
+      td.when(fakeRepository.findById(1)).thenResolve({id: 1, name: 'UpdateApp'})
+
+      return update(fakeRepository)(req, res)
+        .then(() => {
+          td.verify(res.json({
+            application: {id: 1, name: 'UpdateApp'}
+          }))
         })
     })
   })
