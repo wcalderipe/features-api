@@ -1,6 +1,6 @@
 import Knex from 'knex'
 import {expect} from '../../testSetup'
-import {applicationRepository} from '../../../src/repositories/application'
+import {applicationRepository} from '../../../src/repositories'
 
 const knexfile = require('../../../knexfile')
 const knex = Knex(knexfile.test)

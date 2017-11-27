@@ -1,6 +1,6 @@
 import td from 'testdouble'
 import {expect} from '../../testSetup'
-import {applicationRepository} from '../../../src/repositories/application'
+import {applicationRepository} from '../../../src/repositories'
 
 describe('application repository', () => {
   describe('findAll', () => {

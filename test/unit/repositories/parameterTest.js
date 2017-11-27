@@ -1,6 +1,6 @@
 import td from 'testdouble'
 import {expect} from '../../testSetup'
-import {parameterRepository} from '../../../src/repositories/parameter'
+import {parameterRepository} from '../../../src/repositories'
 
 describe('paramete repository', () => {
   describe('findAll', () => {

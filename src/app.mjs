@@ -3,7 +3,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import Knex from 'knex'
 import controllers from './controllers'
-import {applicationRepository} from './repositories/application'
+import {applicationRepository} from './repositories'
 
 const env = process.env.NODE_ENV || 'development'
 const knexfile = require('../knexfile')
