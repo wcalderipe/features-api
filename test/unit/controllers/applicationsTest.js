@@ -56,7 +56,7 @@ describe('applications controller', () => {
       }
 
       td.when(res.status(CREATED)).thenReturn(res)
-      td.when(fakeRepository.create(req.body)).thenResolve([999])
+      td.when(fakeRepository.create(req.body)).thenResolve(999)
 
       return create(fakeRepository)(req, res)
         .then(() => {

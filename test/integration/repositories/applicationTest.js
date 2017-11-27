@@ -28,9 +28,8 @@ describe('application repository', () => {
   describe('create', () => {
     it('inserts a new application and returns the ids', () => {
       return applicationRepository(knex).create({name: 'NewApplication'})
-        .then((ids) => {
-          expect(ids.length).to.equal(1)
-          expect(ids[0]).to.be.an('number')
+        .then((id) => {
+          expect(id).to.be.an('number')
         })
     })
   })
@@ -45,17 +44,17 @@ describe('application repository', () => {
   })
 
   describe('destroy', () => {
-    let id
+    let idToDelete
 
     beforeEach(() => {
       return applicationRepository(knex).create({name: 'AppToDelete'})
-        .then((ids) => {
-          id = ids[0]
+        .then((id) => {
+          idToDelete = id
         })
     })
 
     it('deletes application and returns the number of affected rows', () => {
-      return applicationRepository(knex).destroy(id)
+      return applicationRepository(knex).destroy(idToDelete)
         .then((affectedRows) => {
           expect(affectedRows).to.equal(1)
         })

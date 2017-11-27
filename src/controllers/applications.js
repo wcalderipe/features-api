@@ -1,4 +1,3 @@
-import {head} from 'ramda'
 import {CREATED, NO_CONTENT} from 'http-status'
 
 const list = (repository) => (req, res) => {
@@ -19,8 +18,7 @@ const show = (repository) => (req, res) => {
 
 const create = (repository) => (req, res) => {
   return repository.create(req.body)
-    .then((ids) => {
-      const id = head(ids)
+    .then((id) => {
       return res.status(CREATED).json({id})
     })
 }

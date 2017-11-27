@@ -47,7 +47,7 @@ describe('application repository', () => {
 
       td.when(fakeKnex('applications')).thenReturn({insert: fakeInsert})
       td.when(fakeInsert(application)).thenReturn({returning: fakeReturning})
-      td.when(fakeReturning('id')).thenResolve(999)
+      td.when(fakeReturning('id')).thenResolve([999])
 
       return applicationRepository(fakeKnex).create(application)
         .then((id) => {
