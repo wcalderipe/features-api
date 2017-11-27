@@ -25,6 +25,7 @@ app.get('/applications/:id', controllers.applications.show(applicationRepository
 app.post('/applications', controllers.applications.create(applicationRepository(knex)))
 app.put('/applications/:id', controllers.applications.update(applicationRepository(knex)))
 app.patch('/applications/:id', controllers.applications.update(applicationRepository(knex)))
+app.delete('/applications/:id', controllers.applications.destroy(applicationRepository(knex)))
 
 export default app
 

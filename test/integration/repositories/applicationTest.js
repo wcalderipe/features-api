@@ -43,5 +43,23 @@ describe('application repository', () => {
         })
     })
   })
+
+  describe('destroy', () => {
+    let id
+
+    beforeEach(() => {
+      return applicationRepository(knex).create({name: 'AppToDelete'})
+        .then((ids) => {
+          id = ids[0]
+        })
+    })
+
+    it('deletes application and returns the number of affected rows', () => {
+      return applicationRepository(knex).destroy(id)
+        .then((affectedRows) => {
+          expect(affectedRows).to.equal(1)
+        })
+    })
+  })
 })
 

@@ -1,6 +1,6 @@
-import {CREATED} from 'http-status'
+import {CREATED, NO_CONTENT} from 'http-status'
 import td from 'testdouble'
-import {list, show, create, update} from '../../../src/controllers/applications'
+import {list, show, create, update, destroy} from '../../../src/controllers/applications'
 
 describe('applications controller', () => {
   const res = {
@@ -87,6 +87,29 @@ describe('applications controller', () => {
           td.verify(res.json({
             application: {id: 1, name: 'UpdateApp'}
           }))
+        })
+    })
+  })
+
+  describe('destroy', () => {
+    it('calls res.status with 204 status code', () => {
+      const fakeRepository = {
+        destroy: td.function()
+      }
+      const req = {
+        params: {id: 999}
+      }
+      const res = {
+        status: td.function(),
+        send: td.function()
+      }
+
+      td.when(fakeRepository.destroy(999)).thenResolve(1)
+      td.when(res.status(NO_CONTENT)).thenReturn(res)
+
+      return destroy(fakeRepository)(req, res)
+        .then(() => {
+          td.verify(res.send())
         })
     })
   })

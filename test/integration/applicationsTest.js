@@ -1,4 +1,4 @@
-import {OK, CREATED} from 'http-status'
+import {OK, CREATED, NO_CONTENT} from 'http-status'
 import request from 'supertest'
 import {expect} from '../testSetup'
 import app from '../../src/app'
@@ -63,6 +63,25 @@ describe('applications router', () => {
     })
   })
 
+  describe('DELETE /applications/:id', () => {
+    let id
+
+    beforeEach(() => {
+      return request(app)
+        .post('/applications')
+        .send({name: 'AppToDelete'})
+        .then((response) => {
+          id = response.body.id
+        })
+    })
+
+    it('returns status 204', () => {
+      return request(app)
+        .delete(`/applications/${id}`)
+        .expect(NO_CONTENT)
+    })
+  })
+
   const updateSuite = (httpVerb) => () => {
     const application = {
       name: 'UpdatedApp'
@@ -87,7 +106,7 @@ describe('applications router', () => {
     })
   }
 
-  describe('PUT /applications', updateSuite('put'))
-  describe('PATCH /applications', updateSuite('patch'))
+  describe('PUT /applications/:id', updateSuite('put'))
+  describe('PATCH /applications/:id', updateSuite('patch'))
 })
 

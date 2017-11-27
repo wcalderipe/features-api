@@ -1,5 +1,5 @@
 import {head} from 'ramda'
-import {CREATED} from 'http-status'
+import {CREATED, NO_CONTENT} from 'http-status'
 
 const list = (repository) => (req, res) => {
   return repository.findAll()
@@ -38,5 +38,14 @@ const update = (repository) => (req, res) => {
     })
 }
 
-export {list, show, create, update}
+const destroy = (repository) => (req, res) => {
+  const {id} = req.params
+
+  return repository.destroy(id)
+    .then(() => {
+      return res.status(NO_CONTENT).send()
+    })
+}
+
+export {list, show, create, update, destroy}
 

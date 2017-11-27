@@ -73,5 +73,22 @@ describe('application repository', () => {
         })
     })
   })
+
+  describe('destroy', () => {
+    it('resolves with the number of applications affected', () => {
+      const fakeKnex = td.function()
+      const fakeWhere = td.function()
+      const fakeDel = td.function()
+
+      td.when(fakeKnex('applications')).thenReturn({where: fakeWhere})
+      td.when(fakeWhere({id: 999})).thenReturn({del: fakeDel})
+      td.when(fakeDel()).thenResolve(1)
+
+      return applicationRepository(fakeKnex).destroy(999)
+        .then((affectedRows) => {
+          expect(affectedRows).to.equal(1)
+        })
+    })
+  })
 })
 
