@@ -10,6 +10,15 @@ const sqliteDefaults = {
 }
 
 module.exports = {
+  production: {
+    ...sqliteDefaults,
+    connection: {
+      filename: './db/production.sqlite3'
+    },
+    seeds: {
+      directory: './db/seeds/production'
+    }
+  },
   development: {
     ...sqliteDefaults,
     connection: {
