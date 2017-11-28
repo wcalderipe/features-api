@@ -9,22 +9,21 @@ describe('applications controller', () => {
   const req = {}
 
   describe('list', () => {
-    it('calls res.json with applications list', () => {
+    it('calls res.json with applications list', async () => {
       const fakeRepository = {
         findAll: td.function()
       }
 
       td.when(fakeRepository.findAll()).thenResolve([])
 
-      return list(fakeRepository)(req, res)
-        .then(() => {
-          td.verify(res.json({applications: []}))
-        })
+      await list(fakeRepository)(req, res)
+
+      td.verify(res.json({applications: []}))
     })
   })
 
   describe('show', () => {
-    it('calls res.json with a single application', () => {
+    it('calls res.json with a single application', async () => {
       const fakeRepository = {
         findById: td.function()
       }
@@ -35,15 +34,14 @@ describe('applications controller', () => {
 
       td.when(fakeRepository.findById(1)).thenResolve({name: 'SampleApp'})
 
-      return show(fakeRepository)(req, res)
-        .then(() => {
-          td.verify(res.json({application: expectedApplication}))
-        })
+      await show(fakeRepository)(req, res)
+
+      td.verify(res.json({application: expectedApplication}))
     })
   })
 
   describe('create', () => {
-    it('calls res.status with 201 status code', () => {
+    it('calls res.status with 201 status code', async () => {
       const fakeRepository = {
         create: td.function()
       }
@@ -58,15 +56,14 @@ describe('applications controller', () => {
       td.when(res.status(CREATED)).thenReturn(res)
       td.when(fakeRepository.create(req.body)).thenResolve(999)
 
-      return create(fakeRepository)(req, res)
-        .then(() => {
-          td.verify(res.json({id: 999}))
-        })
+      await create(fakeRepository)(req, res)
+
+      td.verify(res.json({id: 999}))
     })
   })
 
   describe('update', () => {
-    it('calls res.json with updated application', () => {
+    it('calls res.json with updated application', async () => {
       const fakeRepository = {
         update: td.function(),
         findById: td.function()
@@ -82,17 +79,16 @@ describe('applications controller', () => {
       td.when(fakeRepository.update(1, req.body)).thenResolve(1)
       td.when(fakeRepository.findById(1)).thenResolve({id: 1, name: 'UpdateApp'})
 
-      return update(fakeRepository)(req, res)
-        .then(() => {
-          td.verify(res.json({
-            application: {id: 1, name: 'UpdateApp'}
-          }))
-        })
+      await update(fakeRepository)(req, res)
+
+      td.verify(res.json({
+        application: {id: 1, name: 'UpdateApp'}
+      }))
     })
   })
 
   describe('destroy', () => {
-    it('calls res.status with 204 status code', () => {
+    it('calls res.status with 204 status code', async () => {
       const fakeRepository = {
         destroy: td.function()
       }
@@ -107,10 +103,9 @@ describe('applications controller', () => {
       td.when(fakeRepository.destroy(999)).thenResolve(1)
       td.when(res.status(NO_CONTENT)).thenReturn(res)
 
-      return destroy(fakeRepository)(req, res)
-        .then(() => {
-          td.verify(res.send())
-        })
+      await destroy(fakeRepository)(req, res)
+
+      td.verify(res.send())
     })
   })
 })
