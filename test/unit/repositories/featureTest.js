@@ -18,4 +18,26 @@ describe('feature repository', () => {
       expect(features).to.deep.equal(expectedFeatures)
     })
   })
+
+  describe('findById', () => {
+    it('resolves with a single feature', async () => {
+      const knexInterface = {
+        where: td.function(),
+        first: td.function()
+      }
+      const fakeKnex = td.function()
+      const expectedFeature = {
+        name: 'callNewAPI',
+        application_id: 999
+      }
+
+      td.when(fakeKnex('features')).thenReturn(knexInterface)
+      td.when(knexInterface.where({id: 999})).thenReturn(knexInterface)
+      td.when(knexInterface.first()).thenResolve(expectedFeature)
+
+      const feature = await featureRepository(fakeKnex).findById(999)
+
+      expect(feature).to.deep.equal(expectedFeature)
+    })
+  })
 })
