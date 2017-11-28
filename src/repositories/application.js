@@ -1,26 +1,19 @@
+import {pipe} from 'ramda'
+import {withFindAll} from './withFindAll'
+import {withFindById} from './withFindById'
+import {withCreate} from './withCreate'
+import {withUpdate} from './withUpdate'
+import {withDestroy} from './withDestroy'
+
 const TABLE_NAME = 'applications'
 
-const applicationRepository = (knex) => ({
-  findAll: findAll.bind(null, knex),
-  findById: findById.bind(null, knex),
-  create: create.bind(null, knex),
-  update: update.bind(null, knex),
-  destroy: destroy.bind(null, knex)
-})
-
-const findAll = (knex) => knex(TABLE_NAME)
-
-const findById = (knex, id) => knex(TABLE_NAME).where({id}).first()
-
-const create = async (knex, data) => {
-  const [id] = await knex(TABLE_NAME).insert(data).returning('id')
-
-  return id
-}
-
-const update = (knex, id, data) => knex(TABLE_NAME).where({id}).update(data)
-
-const destroy = (knex, id) => knex(TABLE_NAME).where({id}).del()
+const applicationRepository = (knex) => pipe(
+  withFindAll(knex, TABLE_NAME),
+  withFindById(knex, TABLE_NAME),
+  withCreate(knex, TABLE_NAME),
+  withUpdate(knex, TABLE_NAME),
+  withDestroy(knex, TABLE_NAME)
+)({})
 
 export {applicationRepository}
 
