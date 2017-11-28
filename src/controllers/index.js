@@ -1,3 +1,4 @@
 import * as toggles from './toggles'
+import * as applications from './applications'
 
-export default {toggles}
+export default {toggles, applications}
