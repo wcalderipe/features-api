@@ -1,6 +1,5 @@
 import {pipe} from 'ramda'
-import {withFindAll} from './withFindAll'
-import {withFindById} from './withFindById'
+import {withFindAll, withFindById} from './composition'
 
 const TABLE_NAME = 'features'
 
