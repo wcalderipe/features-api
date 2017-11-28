@@ -4,7 +4,7 @@ import {featureRepository} from '../../../src/repositories'
 
 describe('feature repository', () => {
   describe('findAll', () => {
-    it('resolves with a list of features', () => {
+    it('resolves with a list of features', async () => {
       const expectedFeatures = [
         {name: 'callNewAPI', application_id: 1},
         {name: 'newHeader', application_id: 2}
@@ -13,10 +13,9 @@ describe('feature repository', () => {
 
       td.when(fakeKnex('features')).thenResolve(expectedFeatures)
 
-      return featureRepository(fakeKnex).findAll()
-        .then((features) => {
-          expect(features).to.deep.equal(expectedFeatures)
-        })
+      const features = await featureRepository(fakeKnex).findAll()
+
+      expect(features).to.deep.equal(expectedFeatures)
     })
   })
 })

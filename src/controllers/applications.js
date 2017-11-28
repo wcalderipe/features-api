@@ -1,48 +1,39 @@
 import {CREATED, NO_CONTENT} from 'http-status'
 
-const list = (repository) => (req, res) => {
-  return repository.findAll()
-    .then((applications) => {
-      return res.json({applications})
-    })
+const list = (repository) => async (req, res) => {
+  const applications = await repository.findAll()
+
+  return res.json({applications})
 }
 
-const show = (repository) => (req, res) => {
+const show = (repository) => async (req, res) => {
   const {id} = req.params
+  const application = await repository.findById(id)
 
-  return repository.findById(id)
-    .then((application) => {
-      return res.json({application})
-    })
+  return res.json({application})
 }
 
-const create = (repository) => (req, res) => {
-  return repository.create(req.body)
-    .then((id) => {
-      return res.status(CREATED).json({id})
-    })
+const create = (repository) => async (req, res) => {
+  const id = await repository.create(req.body)
+
+  return res.status(CREATED).json({id})
 }
 
-const update = (repository) => (req, res) => {
+const update = (repository) => async (req, res) => {
   const {id} = req.params
   const payload = req.body
 
-  return repository.update(id, payload)
-    .then(() => {
-      return repository.findById(id)
-        .then((application) => {
-          return res.json({application})
-        })
-    })
+  await repository.update(id, payload)
+  const application = await repository.findById(id)
+
+  return res.json({application})
 }
 
-const destroy = (repository) => (req, res) => {
+const destroy = (repository) => async (req, res) => {
   const {id} = req.params
+  await repository.destroy(id)
 
-  return repository.destroy(id)
-    .then(() => {
-      return res.status(NO_CONTENT).send()
-    })
+  return res.status(NO_CONTENT).send()
 }
 
 export {list, show, create, update, destroy}

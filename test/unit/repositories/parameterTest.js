@@ -4,7 +4,7 @@ import {parameterRepository} from '../../../src/repositories'
 
 describe('paramete repository', () => {
   describe('findAll', () => {
-    it('resolves with a list of parameters', () => {
+    it('resolves with a list of parameters', async () => {
       const expectedParameters = [
         {feature_id: 1, rule_json: '{}'},
         {feature_id: 2, rule_json: '{}'}
@@ -13,10 +13,9 @@ describe('paramete repository', () => {
 
       td.when(fakeKnex('parameters')).thenResolve(expectedParameters)
 
-      return parameterRepository(fakeKnex).findAll()
-        .then((parameters) => {
-          expect(parameters).to.deep.equal(expectedParameters)
-        })
+      const parameters = await parameterRepository(fakeKnex).findAll()
+
+      expect(parameters).to.deep.equal(expectedParameters)
     })
   })
 })
