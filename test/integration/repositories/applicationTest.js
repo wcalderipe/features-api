@@ -6,14 +6,6 @@ const knexfile = require('../../../knexfile')
 const knex = Knex(knexfile.test)
 
 describe('application repository', () => {
-  describe('findAll', () => {
-    it('retrieves a list of applications', async () => {
-      const applications = await applicationRepository(knex).findAll()
-
-      expect(applications).to.be.an('array')
-    })
-  })
-
   describe('findById', () => {
     it('retrieves a single application', async () => {
       const application = await applicationRepository(knex).findById(1)
