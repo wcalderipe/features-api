@@ -1,9 +1,9 @@
 import Knex from 'knex'
 import {pipe} from 'ramda'
-import {expect} from '../../../testSetup'
-import {withFindById} from '../../../../src/repositories/composition'
+import {expect} from '../../testSetup'
+import {withFindById} from '../../../src/repositories/withFindById'
 
-const knexfile = require('../../../../knexfile')
+const knexfile = require('../../../knexfile')
 const knex = Knex(knexfile.test)
 
 const TMP_TABLE_NAME = 'withFindById_test_table'

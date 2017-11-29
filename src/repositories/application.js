@@ -1,11 +1,9 @@
 import {pipe} from 'ramda'
-import {
-  withFindAll,
-  withFindById,
-  withCreate,
-  withUpdate,
-  withDestroy
-} from './composition'
+import {withFindAll} from './withFindAll'
+import {withFindById} from './withFindById'
+import {withCreate} from './withCreate'
+import {withUpdate} from './withUpdate'
+import {withDestroy} from './withDestroy'
 
 const TABLE_NAME = 'applications'
 

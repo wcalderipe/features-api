@@ -1,5 +1,5 @@
 import {pipe} from 'ramda'
-import {withFindAll} from './composition'
+import {withFindAll} from './withFindAll'
 
 const TABLE_NAME = 'parameters'
 
