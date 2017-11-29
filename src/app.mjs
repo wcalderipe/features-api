@@ -3,9 +3,10 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import Knex from 'knex'
 import controllers from './controllers'
-import {applicationRepository, featureRepository} from './repositories'
+import {applicationRepository, featureRepository, parameterRepository} from './repositories'
 import {applicationsController} from './controllers/applications'
 import {featuresController} from './controllers/features'
+import {parametersController} from './controllers/parameters'
 
 const env = process.env.NODE_ENV || 'development'
 const knexfile = require('../knexfile')
@@ -37,6 +38,14 @@ app.post('/features', features.create)
 app.put('/features/:id', features.update)
 app.patch('/features/:id', features.update)
 app.delete('/features/:id', features.destroy)
+
+const parameters = parametersController(parameterRepository(knex))
+app.get('/parameters', parameters.list)
+app.get('/parameters/:id', parameters.show)
+app.post('/parameters', parameters.create)
+app.put('/parameters/:id', parameters.update)
+app.patch('/parameters/:id', parameters.update)
+app.delete('/parameters/:id', parameters.destroy)
 
 export default app
 

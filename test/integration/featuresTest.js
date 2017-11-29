@@ -85,7 +85,7 @@ describe('features router', () => {
   })
 
   const updateSuite = (httpVerb) => () => {
-    const application = {
+    const feature = {
       name: 'featureToUpdate'
     }
 
@@ -93,7 +93,7 @@ describe('features router', () => {
       const requestBuilder = request(app)
 
       return requestBuilder[httpVerb]('/features/1')
-        .send(application)
+        .send(feature)
         .expect(OK)
     })
 
@@ -101,7 +101,7 @@ describe('features router', () => {
       const requestBuilder = request(app)
 
       return requestBuilder[httpVerb]('/features/1')
-        .send(application)
+        .send(feature)
         .then((response) => {
           expect(response.body).to.have.property('id')
           expect(response.body).to.have.property('application_id')

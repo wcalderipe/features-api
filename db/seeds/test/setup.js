@@ -17,8 +17,33 @@ const features = (knex) => knex('features')
     ])
   )
 
+const stringRule = {
+  type: 'string',
+  name: 'tripType',
+  given: 'oneway'
+}
+const listRule = {
+  type: 'list',
+  name: 'tripType',
+  presentIn: ['roundtrip', 'oneway']
+}
+const alwaysRule = {
+  type: 'always',
+  returns: true
+}
+const parameters = (knex) => knex('parameters')
+  .del()
+  .then(() => knex('parameters')
+    .insert([
+      {id: 1, feature_id: 1, rule_json: JSON.stringify(stringRule)},
+      {id: 2, feature_id: 2, rule_json: JSON.stringify(listRule)},
+      {id: 3, feature_id: 3, rule_json: JSON.stringify(alwaysRule)}
+    ])
+  )
+
 exports.seed = (knex) => Promise.all([
   applications(knex),
-  features(knex)
+  features(knex),
+  parameters(knex)
 ])
 
