@@ -17,3 +17,8 @@ Heroku https://features-api.herokuapp.com/
 | /applications     | POST      | Creates a new application             |
 | /applications/:id | PUT/PATCH | Updates an application                |
 | /applications/:id | DELETE    | Deletes an application                |
+| /features         | GET       | Fetches all features                  |
+| /features/:id     | GET       | Fetches an feature by ID              |
+| /features         | POST      | Creates a new feature                 |
+| /features/:id     | PUT/PATCH | Updates an feature                    |
+| /features/:id     | DELETE    | Deletes an feature                    |

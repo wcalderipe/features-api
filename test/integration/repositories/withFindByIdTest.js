@@ -8,7 +8,7 @@ const knex = Knex(knexfile.test)
 
 const TMP_TABLE_NAME = 'withFindById_test_table'
 
-describe('withFindById', () => {
+describe('repository withFindById', () => {
   before(async () => {
     await knex.schema.createTable(TMP_TABLE_NAME, (table) => {
       table.increments()

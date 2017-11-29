@@ -3,73 +3,75 @@ import request from 'supertest'
 import {expect} from '../testSetup'
 import app from '../../src/app'
 
-describe('applications router', () => {
-  describe('GET /applications', () => {
+describe('features router', () => {
+  describe('GET /features', () => {
     it('returns status 200', () => {
       return request(app)
-        .get('/applications')
+        .get('/features')
         .expect(OK)
     })
 
-    it('returns a list of applications', () => {
+    it('returns a list of features', () => {
       return request(app)
-        .get('/applications')
+        .get('/features')
         .then((response) => {
-          const applications = response.body
+          const features = response.body
 
-          expect(applications.length).to.equal(2)
+          expect(features.length).to.equal(3)
         })
     })
   })
 
-  describe('GET /applications/:id', () => {
+  describe('GET /features/:id', () => {
     it('returns status 200', () => {
       return request(app)
-        .get('/applications/1')
+        .get('/features/1')
         .expect(OK)
     })
 
-    it('returns a single application', () => {
+    it('returns a single feature', () => {
       return request(app)
-        .get('/applications/1')
+        .get('/features/1')
         .then((response) => {
-          const application = response.body
+          const feature = response.body
 
-          expect(application).to.have.property('id')
-          expect(application).to.have.property('name')
+          expect(feature).to.have.property('id')
+          expect(feature).to.have.property('application_id')
+          expect(feature).to.have.property('name')
         })
     })
   })
 
-  describe('POST /applications', () => {
-    const application = {
-      name: 'NewApplication'
+  describe('POST /features', () => {
+    const feature = {
+      application_id: 1,
+      name: 'newFeature'
     }
 
     it('returns status 201', () => {
       return request(app)
-        .post('/applications')
-        .send(application)
+        .post('/features')
+        .send(feature)
         .expect(CREATED)
     })
 
-    it('returns created application id', () => {
+    it('returns created feature id', () => {
       return request(app)
-        .post('/applications')
-        .send(application)
+        .post('/features')
+        .send(feature)
         .then((response) => {
           expect(response.body).to.have.property('id')
         })
     })
   })
 
-  describe('DELETE /applications/:id', () => {
+  describe('DELETE /features/:id', () => {
     let id
 
     beforeEach(() => {
       return request(app)
-        .post('/applications')
-        .send({name: 'AppToDelete'})
+        .post('/features')
+        .send({application_id: 1, name: 'featureToDelete'})
         .then((response) => {
           id = response.body.id
         })
@@ -77,37 +79,38 @@ describe('applications router', () => {
 
     it('returns status 204', () => {
       return request(app)
-        .delete(`/applications/${id}`)
+        .delete(`/features/${id}`)
         .expect(NO_CONTENT)
     })
   })
 
   const updateSuite = (httpVerb) => () => {
     const application = {
-      name: 'UpdatedApp'
+      name: 'featureToUpdate'
     }
 
     it('returns status 200', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/applications/1')
+      return requestBuilder[httpVerb]('/features/1')
         .send(application)
         .expect(OK)
     })
 
-    it('returns updated application id', () => {
+    it('returns updated feature id', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/applications/1')
+      return requestBuilder[httpVerb]('/features/1')
         .send(application)
         .then((response) => {
           expect(response.body).to.have.property('id')
+          expect(response.body).to.have.property('application_id')
           expect(response.body).to.have.property('name')
         })
     })
   }
 
-  describe('PUT /applications/:id', updateSuite('put'))
-  describe('PATCH /applications/:id', updateSuite('patch'))
+  describe('PUT /features/:id', updateSuite('put'))
+  describe('PATCH /features/:id', updateSuite('patch'))
 })
 

@@ -6,9 +6,9 @@ import {withDestroy} from '../../../src/repositories'
 const knexfile = require('../../../knexfile')
 const knex = Knex(knexfile.test)
 
-const TMP_TABLE_NAME = 'withCreate_test_table'
+const TMP_TABLE_NAME = 'withDestroy_test_table'
 
-describe('withDestroy', () => {
+describe('repository withDestroy', () => {
   before(async () => {
     await knex.schema.createTable(TMP_TABLE_NAME, (table) => {
       table.increments()
