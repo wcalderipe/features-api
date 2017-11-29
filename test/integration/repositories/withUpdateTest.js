@@ -8,7 +8,7 @@ const knex = Knex(knexfile.test)
 
 const TMP_TABLE_NAME = 'withUpdate_test_table'
 
-describe('withUpdate', () => {
+describe('repository withUpdate', () => {
   before(async () => {
     await knex.schema.createTable(TMP_TABLE_NAME, (table) => {
       table.increments()
