@@ -5,7 +5,7 @@ import {withCreate} from './withCreate'
 import {withUpdate} from './withUpdate'
 import {withDestroy} from './withDestroy'
 
-const applicationController = (repository) => pipe(
+const applicationsController = (repository) => pipe(
   withList(repository),
   withShow(repository),
   withCreate(repository),
@@ -13,5 +13,5 @@ const applicationController = (repository) => pipe(
   withDestroy(repository)
 )({})
 
-export {applicationController}
+export {applicationsController}
 

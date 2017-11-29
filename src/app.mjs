@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import Knex from 'knex'
 import controllers from './controllers'
 import {applicationRepository, featureRepository} from './repositories'
-import {applicationController} from './controllers/applications'
+import {applicationsController} from './controllers/applications'
 import {featuresController} from './controllers/features'
 
 const env = process.env.NODE_ENV || 'development'
@@ -22,7 +22,7 @@ app.get('/health', (req, res) => {
 
 app.get('/toggles', controllers.toggles.get())
 
-const applications = applicationController(applicationRepository(knex))
+const applications = applicationsController(applicationRepository(knex))
 app.get('/applications', applications.list)
 app.get('/applications/:id', applications.show)
 app.post('/applications', applications.create)
