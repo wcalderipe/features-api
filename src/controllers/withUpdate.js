@@ -5,9 +5,9 @@ const update = (repository) => async (req, res) => {
   const payload = req.body
 
   await repository.update(id, payload)
-  const application = await repository.findById(id)
+  const entity = await repository.findById(id)
 
-  return res.json(application)
+  return res.json(entity)
 }
 
 const withUpdate = (repository) => (object) => mergeDeepRight(object, {
