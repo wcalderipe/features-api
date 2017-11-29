@@ -10,7 +10,7 @@ describe('controller withShow', () => {
     params: {id: 1}
   }
 
-  it('calls res.json with a single application', async () => {
+  it('calls res.json with a single entity', async () => {
     const fakeRepository = {
       findById: td.function()
     }
