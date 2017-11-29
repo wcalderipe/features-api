@@ -18,7 +18,7 @@ describe('controller withList', () => {
 
     td.when(fakeRepository.findAll()).thenResolve([])
 
-    await controller.list(fakeRepository)(req, res)
+    await controller.list(req, res)
 
     td.verify(res.json([]))
   })

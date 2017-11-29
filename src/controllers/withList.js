@@ -7,7 +7,7 @@ const list = (repository) => async (req, res) => {
 }
 
 const withList = (repository) => (object) => mergeDeepRight(object, {
-  list: list.bind(null, repository)
+  list: list(repository)
 })
 
 export {withList}
