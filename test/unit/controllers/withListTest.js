@@ -8,7 +8,7 @@ describe('controller withList', () => {
   }
   const req = {}
 
-  it('calls res.json with applications list', async () => {
+  it('calls res.json with a list', async () => {
     const fakeRepository = {
       findAll: td.function()
     }
