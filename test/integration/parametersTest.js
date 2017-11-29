@@ -114,4 +114,3 @@ describe('parameters router', () => {
   describe('PATCH /parameters/:id', updateSuite('patch'))
 })
 
-
