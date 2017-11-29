@@ -1,7 +1,7 @@
 import Knex from 'knex'
 import {pipe} from 'ramda'
 import {expect} from '../../testSetup'
-import {withFindAll} from '../../../src/repositories/withFindAll'
+import {withFindAll} from '../../../src/repositories'
 
 const knexfile = require('../../../knexfile')
 const knex = Knex(knexfile.test)
