@@ -23,7 +23,7 @@ Heroku https://features-api.herokuapp.com/
 | /features/:id     | PUT/PATCH | Updates an feature                    |
 | /features/:id     | DELETE    | Deletes an feature                    |
 | /parameters       | GET       | Fetches all parameters                |
-| /parameters/:id   | GET       | Fetches an feature by ID              |
-| /parameters       | POST      | Creates a new feature                 |
-| /parameters/:id   | PUT/PATCH | Updates an feature                    |
-| /parameters/:id   | DELETE    | Deletes an feature                    |
+| /parameters/:id   | GET       | Fetches an parameter by ID            |
+| /parameters       | POST      | Creates a new parameter               |
+| /parameters/:id   | PUT/PATCH | Updates an parameter                  |
+| /parameters/:id   | DELETE    | Deletes an parameter                  |
