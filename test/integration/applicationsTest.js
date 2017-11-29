@@ -15,7 +15,7 @@ describe('applications router', () => {
       return request(app)
         .get('/applications')
         .then((response) => {
-          const {applications} = response.body
+          const applications = response.body
 
           expect(applications.length).to.equal(2)
         })
@@ -33,7 +33,7 @@ describe('applications router', () => {
       return request(app)
         .get('/applications/1')
         .then((response) => {
-          const {application} = response.body
+          const application = response.body
 
           expect(application).to.have.property('id')
           expect(application).to.have.property('name')
@@ -101,7 +101,8 @@ describe('applications router', () => {
       return requestBuilder[httpVerb]('/applications/1')
         .send(application)
         .then((response) => {
-          expect(response.body).to.have.property('application')
+          expect(response.body).to.have.property('id')
+          expect(response.body).to.have.property('name')
         })
     })
   }

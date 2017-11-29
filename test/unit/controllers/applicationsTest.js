@@ -18,7 +18,7 @@ describe('applications controller', () => {
 
       await list(fakeRepository)(req, res)
 
-      td.verify(res.json({applications: []}))
+      td.verify(res.json([]))
     })
   })
 
@@ -36,7 +36,7 @@ describe('applications controller', () => {
 
       await show(fakeRepository)(req, res)
 
-      td.verify(res.json({application: expectedApplication}))
+      td.verify(res.json(expectedApplication))
     })
   })
 
@@ -81,9 +81,7 @@ describe('applications controller', () => {
 
       await update(fakeRepository)(req, res)
 
-      td.verify(res.json({
-        application: {id: 1, name: 'UpdateApp'}
-      }))
+      td.verify(res.json({id: 1, name: 'UpdateApp'}))
     })
   })
 

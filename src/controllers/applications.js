@@ -3,14 +3,14 @@ import {CREATED, NO_CONTENT} from 'http-status'
 const list = (repository) => async (req, res) => {
   const applications = await repository.findAll()
 
-  return res.json({applications})
+  return res.json(applications)
 }
 
 const show = (repository) => async (req, res) => {
   const {id} = req.params
   const application = await repository.findById(id)
 
-  return res.json({application})
+  return res.json(application)
 }
 
 const create = (repository) => async (req, res) => {
@@ -26,7 +26,7 @@ const update = (repository) => async (req, res) => {
   await repository.update(id, payload)
   const application = await repository.findById(id)
 
-  return res.json({application})
+  return res.json(application)
 }
 
 const destroy = (repository) => async (req, res) => {
