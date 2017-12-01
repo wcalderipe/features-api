@@ -6,7 +6,7 @@ import app from '../../src/app'
 describe('GET /toggles', () => {
   it('returns status 200', () => {
     const queryParams = {
-      application: 'SampleApp',
+      applicationId: 1,
       country: 'us',
       language: 'en',
       tripType: 'oneway'

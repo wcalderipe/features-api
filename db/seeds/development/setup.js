@@ -43,8 +43,8 @@ const parameters = (knex) => knex('parameters')
         feature_id: 1,
         rule_json: JSON.stringify({
           type: 'list',
-          name: 'tripType',
-          presentIn: ['roundtrip', 'oneway']
+          name: 'country',
+          presentIn: ['cl', 'br', 'uy', 'ar']
         })
       },
       {

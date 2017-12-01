@@ -8,35 +8,44 @@ describe('toggles controller', () => {
     status: td.function()
   }
 
-  it('calls res.json with evaluated toggles', () => {
+  it('calls res.json with evaluated toggles', async () => {
     const req = {
       query: {
-        application: 'SampleApp'
+        applicationId: 99
       }
     }
     const expectedToggles = {
       someFeature: true,
       otherFeature: false
     }
+    const fakeApplicationService = {
+      createDocumentById: td.function()
+    }
     const fakeEvaluate = () => expectedToggles
 
-    get(fakeEvaluate)(req, res)
+    td.when(fakeApplicationService.createDocumentById(99)).thenResolve({})
+
+    await get(fakeApplicationService, fakeEvaluate)(req, res)
 
     td.verify(res.json({toggles: expectedToggles}))
   })
 
   context('when application is not found', () => {
-    it('calls res.json with error code', () => {
+    it('calls res.json with error code', async () => {
       const req = {
         query: {
           application: 'NotFoundApp'
         }
       }
+      const fakeApplicationService = {
+        createDocumentById: td.function()
+      }
       const fakeEvaluate = () => {}
 
+      td.when(fakeApplicationService.createDocumentById(99)).thenResolve(null)
       td.when(res.status(NOT_FOUND)).thenReturn(res)
 
-      get(fakeEvaluate)(req, res)
+      await get(fakeApplicationService, fakeEvaluate)(req, res)
 
       td.verify(res.json({code: 'ERR_APPLICATION_NOT_FOUND'}))
     })

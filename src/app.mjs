@@ -7,6 +7,7 @@ import {applicationRepository, featureRepository, parameterRepository} from './r
 import {applicationsController} from './controllers/applications'
 import {featuresController} from './controllers/features'
 import {parametersController} from './controllers/parameters'
+import {applicationService} from './services/application'
 
 const env = process.env.NODE_ENV || 'development'
 const knexfile = require('../knexfile')
@@ -21,7 +22,13 @@ app.get('/health', (req, res) => {
   return res.status(OK).json({ok: true})
 })
 
-app.get('/toggles', controllers.toggles.get())
+const service = applicationService({
+  applicationRepository: applicationRepository(knex),
+  featureRepository: featureRepository(knex),
+  parameterRepository: parameterRepository(knex)
+})
+
+app.get('/toggles', controllers.toggles.get(service))
 
 const applications = applicationsController(applicationRepository(knex))
 app.get('/applications', applications.list)

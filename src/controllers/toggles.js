@@ -1,12 +1,10 @@
-import {find, propEq} from 'ramda'
 import {NOT_FOUND} from 'http-status'
 import {evaluate as defaultEvaluate} from '../evaluate'
-import data from '../../data.json'
 
-const get = (evaluate = defaultEvaluate) => (req, res) => {
+const get = (applicationService, evaluate = defaultEvaluate) => async (req, res) => {
   const context = req.query
-  const applicationName = context.application
-  const application = find(propEq('name', applicationName), data)
+  const applicationId = context.applicationId
+  const application = await applicationService.createDocumentById(applicationId)
 
   if (!application) {
     return res.status(NOT_FOUND).json({
