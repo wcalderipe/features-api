@@ -1,9 +1,7 @@
-import Knex from 'knex'
-import {expect} from '../../testSetup'
+import {expect, createKnex} from '../../testSetup'
 import {featureRepository} from '../../../src/repositories'
 
-const knexfile = require('../../../knexfile')
-const knex = Knex(knexfile.test)
+const knex = createKnex()
 const repository = featureRepository(knex)
 
 describe('repository feature', () => {

@@ -24,8 +24,8 @@ const stringRule = {
 }
 const listRule = {
   type: 'list',
-  name: 'tripType',
-  presentIn: ['roundtrip', 'oneway']
+  name: 'country',
+  presentIn: ['cl', 'br', 'uy', 'ar']
 }
 const alwaysRule = {
   type: 'always',

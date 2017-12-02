@@ -1,12 +1,25 @@
 import {OK, NOT_FOUND} from 'http-status'
 import request from 'supertest'
-import {expect} from '../testSetup'
+import {expect, createKnex} from '../testSetup'
 import app from '../../src/app'
+import {applicationRepository} from '../../src/repositories'
+
+const knex = createKnex()
 
 describe('GET /toggles', () => {
+  let applicationId
+
+  before(async () => {
+    applicationId = await applicationRepository(knex).create({name: 'GetToggles'})
+  })
+
+  after(async () => {
+    await applicationRepository(knex).destroy(applicationId)
+  })
+
   it('returns status 200', () => {
     const queryParams = {
-      application: 'SampleApp',
+      applicationId,
       country: 'us',
       language: 'en',
       tripType: 'oneway'
@@ -20,7 +33,7 @@ describe('GET /toggles', () => {
 
   context('when application is not found', () => {
     const queryParams = {
-      application: 'unkwonApp'
+      applicationId: 999
     }
 
     it('returns status 404', () => {

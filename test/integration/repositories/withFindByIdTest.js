@@ -1,12 +1,10 @@
-import Knex from 'knex'
 import {pipe} from 'ramda'
-import {expect} from '../../testSetup'
+import {expect, createKnex} from '../../testSetup'
 import {withFindById} from '../../../src/repositories'
 
-const knexfile = require('../../../knexfile')
-const knex = Knex(knexfile.test)
-
 const TMP_TABLE_NAME = 'withFindById_test_table'
+
+const knex = createKnex()
 
 describe('repository withFindById', () => {
   before(async () => {
