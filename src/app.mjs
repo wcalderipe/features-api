@@ -30,9 +30,16 @@ const service = applicationService({
 
 app.get('/toggles', controllers.toggles.get(service))
 
-const applications = applicationsController(applicationRepository(knex))
+const repositories = ({
+  application: applicationRepository(knex),
+  feature: featureRepository(knex),
+  parameter: parameterRepository(knex)
+})
+
+const applications = applicationsController(repositories)
 app.get('/applications', applications.list)
 app.get('/applications/:id', applications.show)
+app.get('/applications/:id/features', applications.features())
 app.post('/applications', applications.create)
 app.put('/applications/:id', applications.update)
 app.patch('/applications/:id', applications.update)
