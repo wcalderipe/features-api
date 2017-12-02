@@ -1,9 +1,49 @@
 import {OK, CREATED, NO_CONTENT} from 'http-status'
 import request from 'supertest'
-import {expect} from '../testSetup'
+import {expect, createKnex, cleanTable} from '../testSetup'
 import app from '../../src/app'
+import {
+  applicationRepository,
+  TABLE_NAME as APPLICATIONS_TABLE_NAME
+} from '../../src/repositories/application'
+import {
+  featureRepository,
+  TABLE_NAME as FEATURES_TABLE_NAME
+} from '../../src/repositories/feature'
+import {
+  parameterRepository,
+  TABLE_NAME as PARAMETERS_TABLE_NAME
+} from '../../src/repositories/parameter'
+
+const knex = createKnex()
 
 describe('parameters router', () => {
+  let parameterId, featureId, applicationId
+
+  before(async () => {
+    await cleanTable(PARAMETERS_TABLE_NAME)
+    await cleanTable(FEATURES_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+
+    applicationId = await applicationRepository(knex)
+      .create({name: 'application01'})
+
+    featureId = await featureRepository(knex)
+      .create({application_id: applicationId, name: 'feature01'})
+
+    parameterId = await parameterRepository(knex)
+      .create({
+        feature_id: featureId,
+        rule_json: '{}'
+      })
+  })
+
+  after(async () => {
+    await cleanTable(PARAMETERS_TABLE_NAME)
+    await cleanTable(FEATURES_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+  })
+
   describe('GET /parameters', () => {
     it('returns status 200', () => {
       return request(app)
@@ -17,7 +57,7 @@ describe('parameters router', () => {
         .then((response) => {
           const parameters = response.body
 
-          expect(parameters.length).to.equal(3)
+          expect(parameters.length).to.equal(1)
         })
     })
   })
@@ -31,7 +71,7 @@ describe('parameters router', () => {
 
     it('returns a single parameter', () => {
       return request(app)
-        .get('/parameters/1')
+        .get(`/parameters/${parameterId}`)
         .then((response) => {
           const parameter = response.body
 
@@ -44,7 +84,7 @@ describe('parameters router', () => {
 
   describe('POST /parameters', () => {
     const parameter = {
-      feature_id: 1,
+      feature_id: featureId,
       rule_json: '{}'
     }
 
@@ -66,20 +106,16 @@ describe('parameters router', () => {
   })
 
   describe('DELETE /parameters/:id', () => {
-    let id
+    let createdParameterId
 
-    beforeEach(() => {
-      return request(app)
-        .post('/parameters')
-        .send({feature_id: 1, rule_json: '{}'})
-        .then((response) => {
-          id = response.body.id
-        })
+    beforeEach(async () => {
+      createdParameterId = await parameterRepository(knex)
+        .create({feature_id: featureId, rule_json: '{}'})
     })
 
     it('returns status 204', () => {
       return request(app)
-        .delete(`/parameters/${id}`)
+        .delete(`/parameters/${createdParameterId}`)
         .expect(NO_CONTENT)
     })
   })
@@ -92,7 +128,7 @@ describe('parameters router', () => {
     it('returns status 200', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/parameters/1')
+      return requestBuilder[httpVerb](`/parameters/${parameterId}`)
         .send(parameter)
         .expect(OK)
     })
@@ -100,7 +136,7 @@ describe('parameters router', () => {
     it('returns updated parameter id', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/parameters/1')
+      return requestBuilder[httpVerb](`/parameters/${parameterId}`)
         .send(parameter)
         .then((response) => {
           expect(response.body).to.have.property('id')
