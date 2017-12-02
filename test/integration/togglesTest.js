@@ -1,12 +1,10 @@
 import {OK, NOT_FOUND} from 'http-status'
-import Knex from 'knex'
 import request from 'supertest'
-import {expect} from '../testSetup'
+import {expect, createKnex} from '../testSetup'
 import app from '../../src/app'
 import {applicationRepository} from '../../src/repositories'
 
-const knexfile = require('../../knexfile')
-const knex = Knex(knexfile.test)
+const knex = createKnex()
 
 describe('GET /toggles', () => {
   let applicationId
