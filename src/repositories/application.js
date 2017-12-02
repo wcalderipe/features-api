@@ -5,7 +5,7 @@ import {withCreate} from './withCreate'
 import {withUpdate} from './withUpdate'
 import {withDestroy} from './withDestroy'
 
-const TABLE_NAME = 'applications'
+export const TABLE_NAME = 'applications'
 
 const applicationRepository = (knex) => pipe(
   withFindAll(knex, TABLE_NAME),

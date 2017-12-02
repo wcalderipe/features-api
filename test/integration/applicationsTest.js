@@ -1,9 +1,29 @@
 import {OK, CREATED, NO_CONTENT} from 'http-status'
 import request from 'supertest'
-import {expect} from '../testSetup'
+import {expect, createKnex, cleanTable} from '../testSetup'
 import app from '../../src/app'
+import {
+  applicationRepository,
+  TABLE_NAME as APPLICATIONS_TABLE_NAME
+} from '../../src/repositories/application'
+
+const knex = createKnex()
 
 describe('applications router', () => {
+  let applicationId
+
+  before(async () => {
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+
+    applicationId = await applicationRepository(knex).create({
+      name: 'application01'
+    })
+  })
+
+  after(async () => {
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+  })
+
   describe('GET /applications', () => {
     it('returns status 200', () => {
       return request(app)
@@ -17,7 +37,7 @@ describe('applications router', () => {
         .then((response) => {
           const applications = response.body
 
-          expect(applications.length).to.equal(2)
+          expect(applications.length).to.equal(1)
         })
     })
   })
@@ -25,13 +45,13 @@ describe('applications router', () => {
   describe('GET /applications/:id', () => {
     it('returns status 200', () => {
       return request(app)
-        .get('/applications/1')
+        .get(`/applications/${applicationId}`)
         .expect(OK)
     })
 
     it('returns a single application', () => {
       return request(app)
-        .get('/applications/1')
+        .get(`/applications/${applicationId}`)
         .then((response) => {
           const application = response.body
 
@@ -43,7 +63,7 @@ describe('applications router', () => {
 
   describe('POST /applications', () => {
     const application = {
-      name: 'NewApplication'
+      name: 'newApplication'
     }
 
     it('returns status 201', () => {
@@ -64,20 +84,17 @@ describe('applications router', () => {
   })
 
   describe('DELETE /applications/:id', () => {
-    let id
+    let createdApplicationId
 
-    beforeEach(() => {
-      return request(app)
-        .post('/applications')
-        .send({name: 'AppToDelete'})
-        .then((response) => {
-          id = response.body.id
-        })
+    beforeEach(async () => {
+      createdApplicationId = await applicationRepository(knex).create({
+        name: 'applicationToDelete'
+      })
     })
 
     it('returns status 204', () => {
       return request(app)
-        .delete(`/applications/${id}`)
+        .delete(`/applications/${createdApplicationId}`)
         .expect(NO_CONTENT)
     })
   })
@@ -90,7 +107,7 @@ describe('applications router', () => {
     it('returns status 200', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/applications/1')
+      return requestBuilder[httpVerb](`/applications/${applicationId}`)
         .send(application)
         .expect(OK)
     })
@@ -98,7 +115,7 @@ describe('applications router', () => {
     it('returns updated application id', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/applications/1')
+      return requestBuilder[httpVerb](`/applications/${applicationId}`)
         .send(application)
         .then((response) => {
           expect(response.body).to.have.property('id')

@@ -5,7 +5,7 @@ import {withCreate} from './withCreate'
 import {withUpdate} from './withUpdate'
 import {withDestroy} from './withDestroy'
 
-const TABLE_NAME = 'features'
+export const TABLE_NAME = 'features'
 
 const specificFunctions = (knex) => ({
   findByApplicationId: findByApplicationId.bind(null, knex)
