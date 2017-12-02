@@ -1,11 +1,11 @@
 import {OK, CREATED, NO_CONTENT} from 'http-status'
 import request from 'supertest'
 import {expect, createKnex, cleanTable} from '../testSetup'
+import app from '../../src/app'
 import {
   applicationRepository,
-  TABLE_NAME as APPLICATION_TABLE_NAME
+  TABLE_NAME as APPLICATIONS_TABLE_NAME
 } from '../../src/repositories/application'
-import app from '../../src/app'
 
 const knex = createKnex()
 
@@ -13,14 +13,14 @@ describe('applications router', () => {
   let applicationId
 
   before(async () => {
-    await cleanTable(APPLICATION_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
 
     applicationId = await applicationRepository(knex)
-      .create({name: 'IntegrationTestApp01'})
+      .create({name: 'application01'})
   })
 
   after(async () => {
-    await applicationRepository(knex).destroy(applicationId)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
   })
 
   describe('GET /applications', () => {
@@ -62,7 +62,7 @@ describe('applications router', () => {
 
   describe('POST /applications', () => {
     const application = {
-      name: 'NewApplication'
+      name: 'newApplication'
     }
 
     it('returns status 201', () => {
@@ -85,13 +85,9 @@ describe('applications router', () => {
   describe('DELETE /applications/:id', () => {
     let createdApplicationId
 
-    beforeEach(() => {
-      return request(app)
-        .post('/applications')
-        .send({name: 'AppToDelete'})
-        .then((response) => {
-          createdApplicationId = response.body.id
-        })
+    beforeEach(async () => {
+      createdApplicationId = await applicationRepository(knex)
+        .create({name: 'applicationToDelete'})
     })
 
     it('returns status 204', () => {

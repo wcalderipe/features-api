@@ -1,9 +1,37 @@
 import {OK, CREATED, NO_CONTENT} from 'http-status'
 import request from 'supertest'
-import {expect} from '../testSetup'
+import {expect, createKnex, cleanTable} from '../testSetup'
 import app from '../../src/app'
+import {
+  applicationRepository,
+  TABLE_NAME as APPLICATIONS_TABLE_NAME
+} from '../../src/repositories/application'
+import {
+  featureRepository,
+  TABLE_NAME as FEATURES_TABLE_NAME
+} from '../../src/repositories/feature'
+
+const knex = createKnex()
 
 describe('features router', () => {
+  let featureId, applicationId
+
+  before(async () => {
+    await cleanTable(FEATURES_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+
+    applicationId = await applicationRepository(knex)
+      .create({name: 'application01'})
+
+    featureId = await featureRepository(knex)
+      .create({application_id: applicationId, name: 'feature01'})
+  })
+
+  after(async () => {
+    await cleanTable(FEATURES_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+  })
+
   describe('GET /features', () => {
     it('returns status 200', () => {
       return request(app)
@@ -17,7 +45,7 @@ describe('features router', () => {
         .then((response) => {
           const features = response.body
 
-          expect(features.length).to.equal(3)
+          expect(features.length).to.equal(1)
         })
     })
   })
@@ -25,13 +53,13 @@ describe('features router', () => {
   describe('GET /features/:id', () => {
     it('returns status 200', () => {
       return request(app)
-        .get('/features/1')
+        .get(`/features/${featureId}`)
         .expect(OK)
     })
 
     it('returns a single feature', () => {
       return request(app)
-        .get('/features/1')
+        .get(`/features/${featureId}`)
         .then((response) => {
           const feature = response.body
 
@@ -44,7 +72,7 @@ describe('features router', () => {
 
   describe('POST /features', () => {
     const feature = {
-      application_id: 1,
+      application_id: applicationId,
       name: 'newFeature'
     }
 
@@ -66,20 +94,16 @@ describe('features router', () => {
   })
 
   describe('DELETE /features/:id', () => {
-    let id
+    let createdFeatureId
 
-    beforeEach(() => {
-      return request(app)
-        .post('/features')
-        .send({application_id: 1, name: 'featureToDelete'})
-        .then((response) => {
-          id = response.body.id
-        })
+    beforeEach(async () => {
+      createdFeatureId = await featureRepository(knex)
+        .create({application_id: applicationId, name: 'featureToDelete'})
     })
 
     it('returns status 204', () => {
       return request(app)
-        .delete(`/features/${id}`)
+        .delete(`/features/${createdFeatureId}`)
         .expect(NO_CONTENT)
     })
   })
@@ -92,7 +116,7 @@ describe('features router', () => {
     it('returns status 200', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/features/1')
+      return requestBuilder[httpVerb](`/features/${featureId}`)
         .send(feature)
         .expect(OK)
     })
@@ -100,7 +124,7 @@ describe('features router', () => {
     it('returns updated feature id', () => {
       const requestBuilder = request(app)
 
-      return requestBuilder[httpVerb]('/features/1')
+      return requestBuilder[httpVerb](`/features/${featureId}`)
         .send(feature)
         .then((response) => {
           expect(response.body).to.have.property('id')
