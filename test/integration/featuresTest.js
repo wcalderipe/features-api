@@ -10,6 +10,10 @@ import {
   featureRepository,
   TABLE_NAME as FEATURES_TABLE_NAME
 } from '../../src/repositories/feature'
+import {
+  parameterRepository,
+  TABLE_NAME as PARAMETERS_TABLE_NAME
+} from '../../src/repositories/parameter'
 
 const knex = createKnex()
 
@@ -17,6 +21,7 @@ describe('features router', () => {
   let featureId, applicationId
 
   before(async () => {
+    await cleanTable(PARAMETERS_TABLE_NAME)
     await cleanTable(FEATURES_TABLE_NAME)
     await cleanTable(APPLICATIONS_TABLE_NAME)
 
@@ -28,9 +33,15 @@ describe('features router', () => {
       application_id: applicationId,
       name: 'feature01'
     })
+
+    await parameterRepository(knex).create({
+      feature_id: featureId,
+      rule: {}
+    })
   })
 
   after(async () => {
+    await cleanTable(PARAMETERS_TABLE_NAME)
     await cleanTable(FEATURES_TABLE_NAME)
     await cleanTable(APPLICATIONS_TABLE_NAME)
   })
@@ -51,6 +62,24 @@ describe('features router', () => {
           expect(feature).to.have.property('id')
           expect(feature).to.have.property('application_id')
           expect(feature).to.have.property('name')
+        })
+    })
+  })
+
+  describe('GET /features/:id/parameters', () => {
+    it('returns status 200', () => {
+      return request(app)
+        .get(`/features/${featureId}/parameters`)
+        .expect(OK)
+    })
+
+    it('returns a list of feature children parameters ', () => {
+      return request(app)
+        .get(`/features/${featureId}/parameters`)
+        .then((response) => {
+          const parameters = response.body
+
+          expect(parameters.length).to.equal(1)
         })
     })
   })

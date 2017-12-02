@@ -9,7 +9,7 @@ const specificFunctions = (repositories) => ({
   features: features.bind(null, repositories.feature)
 })
 
-const features = (repository) => async (req, res) => {
+const features = async (repository, req, res) => {
   const {id} = req.params
   const applicationFeatures = await repository.findByApplicationId(id)
 

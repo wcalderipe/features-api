@@ -1,5 +1,4 @@
 import {pipe, pick, map} from 'ramda'
-import {withFindAll} from './withFindAll'
 import {withDestroy} from './withDestroy'
 
 export const TABLE_NAME = 'parameters'
@@ -47,7 +46,6 @@ const deserialize = (data) => ({
 })
 
 const parameterRepository = (knex) => pipe(
-  withFindAll(knex, TABLE_NAME),
   withDestroy(knex, TABLE_NAME)
 )(specificFunctions(knex))
 
