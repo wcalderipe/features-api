@@ -1,5 +1,4 @@
 import {pipe} from 'ramda'
-import {withList} from './withList'
 import {withShow} from './withShow'
 import {withCreate} from './withCreate'
 import {withUpdate} from './withUpdate'
