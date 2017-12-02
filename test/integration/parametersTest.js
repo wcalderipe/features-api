@@ -25,17 +25,19 @@ describe('parameters router', () => {
     await cleanTable(FEATURES_TABLE_NAME)
     await cleanTable(APPLICATIONS_TABLE_NAME)
 
-    applicationId = await applicationRepository(knex)
-      .create({name: 'application01'})
+    applicationId = await applicationRepository(knex).create({
+      name: 'application01'
+    })
 
-    featureId = await featureRepository(knex)
-      .create({application_id: applicationId, name: 'feature01'})
+    featureId = await featureRepository(knex).create({
+      application_id: applicationId,
+      name: 'feature01'
+    })
 
-    parameterId = await parameterRepository(knex)
-      .create({
-        feature_id: featureId,
-        rule_json: '{}'
-      })
+    parameterId = await parameterRepository(knex).create({
+      feature_id: featureId,
+      rule_json: '{}'
+    })
   })
 
   after(async () => {
@@ -109,8 +111,11 @@ describe('parameters router', () => {
     let createdParameterId
 
     beforeEach(async () => {
-      createdParameterId = await parameterRepository(knex)
-        .create({feature_id: featureId, rule_json: '{}'})
+      createdParameterId = await parameterRepository(knex).create({
+        feature_id:
+        featureId,
+        rule_json: '{}'
+      })
     })
 
     it('returns status 204', () => {

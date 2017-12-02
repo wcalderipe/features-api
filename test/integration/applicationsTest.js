@@ -15,8 +15,9 @@ describe('applications router', () => {
   before(async () => {
     await cleanTable(APPLICATIONS_TABLE_NAME)
 
-    applicationId = await applicationRepository(knex)
-      .create({name: 'application01'})
+    applicationId = await applicationRepository(knex).create({
+      name: 'application01'
+    })
   })
 
   after(async () => {
@@ -86,8 +87,9 @@ describe('applications router', () => {
     let createdApplicationId
 
     beforeEach(async () => {
-      createdApplicationId = await applicationRepository(knex)
-        .create({name: 'applicationToDelete'})
+      createdApplicationId = await applicationRepository(knex).create({
+        name: 'applicationToDelete'
+      })
     })
 
     it('returns status 204', () => {

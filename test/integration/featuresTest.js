@@ -20,11 +20,14 @@ describe('features router', () => {
     await cleanTable(FEATURES_TABLE_NAME)
     await cleanTable(APPLICATIONS_TABLE_NAME)
 
-    applicationId = await applicationRepository(knex)
-      .create({name: 'application01'})
+    applicationId = await applicationRepository(knex).create({
+      name: 'application01'
+    })
 
-    featureId = await featureRepository(knex)
-      .create({application_id: applicationId, name: 'feature01'})
+    featureId = await featureRepository(knex).create({
+      application_id: applicationId,
+      name: 'feature01'
+    })
   })
 
   after(async () => {
@@ -97,8 +100,10 @@ describe('features router', () => {
     let createdFeatureId
 
     beforeEach(async () => {
-      createdFeatureId = await featureRepository(knex)
-        .create({application_id: applicationId, name: 'featureToDelete'})
+      createdFeatureId = await featureRepository(knex).create({
+        application_id: applicationId,
+        name: 'featureToDelete'
+      })
     })
 
     it('returns status 204', () => {
