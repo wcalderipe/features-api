@@ -19,8 +19,9 @@
     "start:prod": "NODE_ENV=production node -r @std/esm server.js",
     "lint": "eslint src test",
     "test": "npm run test:unit && npm run test:integration",
+    "test:db:create": "NODE_ENV=test npm run db:migrate",
     "test:unit": "NODE_ENV=test mocha ./test/unit --require @std/esm --recursive",
-    "test:integration": "rm -f db/test.sqlite3 && NODE_ENV=test npm run db:setup && NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
+    "test:integration": "rm -f db/test.sqlite3 && npm run test:db:create && NODE_ENV=test mocha ./test/integration --require @std/esm --recursive",
     "test-watch:unit": "npm run test:unit -- --watch",
     "test-watch:integration": "npm run test:integration -- --watch"
   },
