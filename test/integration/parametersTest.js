@@ -36,7 +36,7 @@ describe('parameters router', () => {
 
     parameterId = await parameterRepository(knex).create({
       feature_id: featureId,
-      rule_json: '{}'
+      rule: {}
     })
   })
 
@@ -87,7 +87,7 @@ describe('parameters router', () => {
   describe('POST /parameters', () => {
     const parameter = {
       feature_id: featureId,
-      rule_json: '{}'
+      rule: {}
     }
 
     it('returns status 201', () => {
@@ -112,9 +112,8 @@ describe('parameters router', () => {
 
     beforeEach(async () => {
       createdParameterId = await parameterRepository(knex).create({
-        feature_id:
-        featureId,
-        rule_json: '{}'
+        feature_id: featureId,
+        rule: {}
       })
     })
 
@@ -127,7 +126,7 @@ describe('parameters router', () => {
 
   const updateSuite = (httpVerb) => () => {
     const parameter = {
-      rule_json: '{"something":"new"}'
+      rule: {something: 'new'}
     }
 
     it('returns status 200', () => {

@@ -25,11 +25,11 @@ describe('repository parameter', () => {
 
     parameterId = await parameterRepository(knex).create({
       feature_id: featureId,
-      rule_json: JSON.stringify({
+      rule: {
         type: 'list',
         name: 'country',
         presentIn: ['br', 'us']
-      })
+      }
     })
   })
 
@@ -67,6 +67,34 @@ describe('repository parameter', () => {
       }
 
       expect(parameter.rule).to.deep.equal(expectedRule)
+    })
+  })
+
+  describe('create', () => {
+    it('creates a new parameter and returns the id', async () => {
+      const data = {
+        feature_id: featureId,
+        rule: {
+          type: 'list',
+          name: 'country',
+          presentIn: ['br', 'us']
+        }
+      }
+      const id = await repository.create(data)
+
+      expect(id).to.be.an('number')
+    })
+  })
+
+  describe('update', () => {
+    it('updates parameter and returns number of affected rows', async () => {
+      const affectedRows = await repository.update(parameterId, {
+        rule: {
+          update: 'myRule'
+        }
+      })
+
+      expect(affectedRows).to.equal(1)
     })
   })
 })
