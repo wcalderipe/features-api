@@ -79,7 +79,7 @@ describe('parameters router', () => {
 
           expect(parameter).to.have.property('id')
           expect(parameter).to.have.property('feature_id')
-          expect(parameter).to.have.property('rule_json')
+          expect(parameter).to.have.property('rule')
         })
     })
   })
@@ -146,7 +146,7 @@ describe('parameters router', () => {
         .then((response) => {
           expect(response.body).to.have.property('id')
           expect(response.body).to.have.property('feature_id')
-          expect(response.body).to.have.property('rule_json')
+          expect(response.body).to.have.property('rule')
         })
     })
   }
