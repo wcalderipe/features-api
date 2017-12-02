@@ -46,7 +46,6 @@ app.patch('/applications/:id', applications.update)
 app.delete('/applications/:id', applications.destroy)
 
 const features = featuresController(featureRepository(knex))
-app.get('/features', features.list)
 app.get('/features/:id', features.show)
 app.post('/features', features.create)
 app.put('/features/:id', features.update)

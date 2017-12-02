@@ -35,24 +35,6 @@ describe('features router', () => {
     await cleanTable(APPLICATIONS_TABLE_NAME)
   })
 
-  describe('GET /features', () => {
-    it('returns status 200', () => {
-      return request(app)
-        .get('/features')
-        .expect(OK)
-    })
-
-    it('returns a list of features', () => {
-      return request(app)
-        .get('/features')
-        .then((response) => {
-          const features = response.body
-
-          expect(features.length).to.equal(1)
-        })
-    })
-  })
-
   describe('GET /features/:id', () => {
     it('returns status 200', () => {
       return request(app)
