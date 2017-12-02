@@ -6,6 +6,10 @@ import {
   applicationRepository,
   TABLE_NAME as APPLICATIONS_TABLE_NAME
 } from '../../src/repositories/application'
+import {
+  featureRepository,
+  TABLE_NAME as FEATURES_TABLE_NAME
+} from '../../src/repositories/feature'
 
 const knex = createKnex()
 
@@ -13,14 +17,21 @@ describe('applications router', () => {
   let applicationId
 
   before(async () => {
+    await cleanTable(FEATURES_TABLE_NAME)
     await cleanTable(APPLICATIONS_TABLE_NAME)
 
     applicationId = await applicationRepository(knex).create({
       name: 'application01'
     })
+
+    await featureRepository(knex).create({
+      application_id: applicationId,
+      name: 'feature01'
+    })
   })
 
   after(async () => {
+    await cleanTable(FEATURES_TABLE_NAME)
     await cleanTable(APPLICATIONS_TABLE_NAME)
   })
 
@@ -38,6 +49,24 @@ describe('applications router', () => {
           const applications = response.body
 
           expect(applications.length).to.equal(1)
+        })
+    })
+  })
+
+  describe('GET /applications/:id/features', () => {
+    it('returns status 200', () => {
+      return request(app)
+        .get(`/applications/${applicationId}/features`)
+        .expect(OK)
+    })
+
+    it('returns a list of application children features', () => {
+      return request(app)
+        .get(`/applications/${applicationId}/features`)
+        .then((response) => {
+          const features = response.body
+
+          expect(features.length).to.equal(1)
         })
     })
   })
