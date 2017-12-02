@@ -4,12 +4,23 @@ import {withCreate} from './withCreate'
 import {withUpdate} from './withUpdate'
 import {withDestroy} from './withDestroy'
 
-const featuresController = (repository) => pipe(
-  withShow(repository),
-  withCreate(repository),
-  withUpdate(repository),
-  withDestroy(repository)
-)({})
+const specificFunctions = (repositories) => ({
+  parameters: parameters.bind(null, repositories.parameter)
+})
+
+const parameters = async (repository, req, res) => {
+  const {id} = req.params
+  const featureParameters = await repository.findByFeatureId(id)
+
+  return res.json(featureParameters)
+}
+
+const featuresController = (repositories) => pipe(
+  withShow(repositories.feature),
+  withCreate(repositories.feature),
+  withUpdate(repositories.feature),
+  withDestroy(repositories.feature)
+)(specificFunctions(repositories))
 
 export {featuresController}
 

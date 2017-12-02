@@ -47,7 +47,6 @@ const deserialize = (data) => ({
 })
 
 const parameterRepository = (knex) => pipe(
-  withFindAll(knex, TABLE_NAME),
   withDestroy(knex, TABLE_NAME)
 )(specificFunctions(knex))
 

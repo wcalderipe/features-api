@@ -6,7 +6,6 @@ import {withUpdate} from './withUpdate'
 import {withDestroy} from './withDestroy'
 
 const parametersController = (repository) => pipe(
-  withList(repository),
   withShow(repository),
   withCreate(repository),
   withUpdate(repository),

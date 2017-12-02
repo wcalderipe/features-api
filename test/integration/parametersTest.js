@@ -46,28 +46,10 @@ describe('parameters router', () => {
     await cleanTable(APPLICATIONS_TABLE_NAME)
   })
 
-  describe('GET /parameters', () => {
-    it('returns status 200', () => {
-      return request(app)
-        .get('/parameters')
-        .expect(OK)
-    })
-
-    it('returns a list of parameters', () => {
-      return request(app)
-        .get('/parameters')
-        .then((response) => {
-          const parameters = response.body
-
-          expect(parameters.length).to.equal(1)
-        })
-    })
-  })
-
   describe('GET /parameters/:id', () => {
     it('returns status 200', () => {
       return request(app)
-        .get('/parameters/1')
+        .get(`/parameters/${parameterId}`)
         .expect(OK)
     })
 
