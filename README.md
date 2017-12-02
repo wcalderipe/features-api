@@ -14,15 +14,15 @@ Heroku https://features-api.herokuapp.com/
 | /toggles                   | GET       | Fetches application evaluated toggles |
 | /applications              | GET       | Fetches all applications              |
 | /applications/:id          | GET       | Fetches an application by ID          |
-| /applications/:id/features | GET       | Fetches an application's features     |
+| /applications/:id/features | GET       | Fetches application's features        |
 | /applications              | POST      | Creates a new application             |
 | /applications/:id          | PUT/PATCH | Updates an application                |
 | /applications/:id          | DELETE    | Deletes an application                |
 | /features/:id              | GET       | Fetches an feature by ID              |
+| /features/:id/parameters   | GET       | Fetches feature's parameter           |
 | /features                  | POST      | Creates a new feature                 |
 | /features/:id              | PUT/PATCH | Updates an feature                    |
 | /features/:id              | DELETE    | Deletes an feature                    |
-| /parameters                | GET       | Fetches all parameters                |
 | /parameters/:id            | GET       | Fetches an parameter by ID            |
 | /parameters                | POST      | Creates a new parameter               |
 | /parameters/:id            | PUT/PATCH | Updates an parameter                  |
