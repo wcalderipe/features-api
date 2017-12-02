@@ -27,3 +27,58 @@ Heroku https://features-api.herokuapp.com/
 | /parameters                | POST      | Creates a new parameter               |
 | /parameters/:id            | PUT/PATCH | Updates an parameter                  |
 | /parameters/:id            | DELETE    | Deletes an parameter                  |
+
+## Application document sample
+
+```json
+[
+  {
+    "name": "SampleApp",
+    "features": [
+      {
+        "name": "newHeader",
+        "parameters": [
+          {
+            "type": "list",
+            "name": "tripType",
+            "presentIn": ["roundtrip", "oneway"]
+          }
+        ]
+      },
+      {
+        "name": "callNewAPI",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "tripType",
+            "given": "oneway"
+          }
+        ]
+      },
+      {
+        "name": "appEnable",
+        "parameters": [
+          {
+            "type": "always",
+            "returns": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "OtherApp",
+    "features": [
+      {
+        "name": "appEnable",
+        "parameters": [
+          {
+            "type": "always",
+            "returns": false
+          }
+        ]
+      }
+    ]
+  }
+]
+```
