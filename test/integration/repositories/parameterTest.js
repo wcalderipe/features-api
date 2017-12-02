@@ -12,7 +12,7 @@ const knex = createKnex()
 const repository = parameterRepository(knex)
 
 describe('repository parameter', () => {
-  let featureId
+  let featureId, parameterId
 
   before(async () => {
     await cleanTable(PARAMETERS_TABLE_NAME)
@@ -23,9 +23,13 @@ describe('repository parameter', () => {
       name: 'feature01'
     })
 
-    await parameterRepository(knex).create({
+    parameterId = await parameterRepository(knex).create({
       feature_id: featureId,
-      rule_json: '{}'
+      rule: {
+        type: 'list',
+        name: 'country',
+        presentIn: ['br', 'us']
+      }
     })
   })
 
@@ -34,10 +38,64 @@ describe('repository parameter', () => {
     await cleanTable(FEATURES_TABLE_NAME)
   })
 
-  it('findByFeatureId', async () => {
-    const features = await repository.findByFeatureId(featureId)
+  describe('findById', () => {
+    it('deserializes rule_json after select', async () => {
+      const parameter = await repository.findById(parameterId)
+      const expectedRule = {
+        type: 'list',
+        name: 'country',
+        presentIn: ['br', 'us']
+      }
 
-    expect(features.length).to.equal(1)
+      expect(parameter.rule).to.deep.equal(expectedRule)
+    })
+  })
+
+  describe('findByFeatureId', () => {
+    it('returns a list of parameters', async () => {
+      const parameters = await repository.findByFeatureId(featureId)
+
+      expect(parameters.length).to.equal(1)
+    })
+
+    it('deserializes rule_json after select', async () => {
+      const [parameter] = await repository.findByFeatureId(featureId)
+      const expectedRule = {
+        type: 'list',
+        name: 'country',
+        presentIn: ['br', 'us']
+      }
+
+      expect(parameter.rule).to.deep.equal(expectedRule)
+    })
+  })
+
+  describe('create', () => {
+    it('creates a new parameter and returns the id', async () => {
+      const data = {
+        feature_id: featureId,
+        rule: {
+          type: 'list',
+          name: 'country',
+          presentIn: ['br', 'us']
+        }
+      }
+      const id = await repository.create(data)
+
+      expect(id).to.be.an('number')
+    })
+  })
+
+  describe('update', () => {
+    it('updates parameter and returns number of affected rows', async () => {
+      const affectedRows = await repository.update(parameterId, {
+        rule: {
+          update: 'myRule'
+        }
+      })
+
+      expect(affectedRows).to.equal(1)
+    })
   })
 })
 
