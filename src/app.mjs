@@ -1,17 +1,13 @@
 import {OK} from 'http-status'
 import express from 'express'
 import bodyParser from 'body-parser'
-import Knex from 'knex'
+import knex from './libs/knex'
 import controllers from './controllers'
 import {applicationRepository, featureRepository, parameterRepository} from './repositories'
 import {applicationsController} from './controllers/applications'
 import {featuresController} from './controllers/features'
 import {parametersController} from './controllers/parameters'
 import {applicationService} from './services/application'
-
-const env = process.env.NODE_ENV || 'development'
-const knexfile = require('../knexfile')
-const knex = Knex(knexfile[env])
 
 const app = express()
 
