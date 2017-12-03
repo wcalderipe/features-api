@@ -1,8 +1,19 @@
 import {OK, NOT_FOUND} from 'http-status'
 import request from 'supertest'
-import {expect, createKnex} from '../testSetup'
+import {expect, createKnex, cleanTable} from '../testSetup'
 import app from '../../src/app'
-import {applicationRepository} from '../../src/repositories'
+import {
+  applicationRepository,
+  TABLE_NAME as APPLICATIONS_TABLE_NAME
+} from '../../src/repositories/application'
+import {
+  featureRepository,
+  TABLE_NAME as FEATURES_TABLE_NAME
+} from '../../src/repositories/feature'
+import {
+  parameterRepository,
+  TABLE_NAME as PARAMETERS_TABLE_NAME
+} from '../../src/repositories/parameter'
 
 const knex = createKnex()
 
@@ -10,11 +21,33 @@ describe('GET /toggles', () => {
   let applicationId
 
   before(async () => {
-    applicationId = await applicationRepository(knex).create({name: 'GetToggles'})
+    await cleanTable(PARAMETERS_TABLE_NAME)
+    await cleanTable(FEATURES_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
+
+    applicationId = await applicationRepository(knex).create({
+      name: 'application01'
+    })
+
+    const featureId = await featureRepository(knex).create({
+      application_id: applicationId,
+      name: 'feature01'
+    })
+
+    await parameterRepository(knex).create({
+      feature_id: featureId,
+      rule: {
+        name: 'parameter01',
+        type: 'always',
+        returns: true
+      }
+    })
   })
 
   after(async () => {
-    await applicationRepository(knex).destroy(applicationId)
+    await cleanTable(PARAMETERS_TABLE_NAME)
+    await cleanTable(FEATURES_TABLE_NAME)
+    await cleanTable(APPLICATIONS_TABLE_NAME)
   })
 
   it('returns status 200', () => {

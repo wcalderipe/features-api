@@ -24,21 +24,21 @@ describe('services application', () => {
     td.when(fakeParamaterRepository.findByFeatureId(1))
       .thenResolve([
         {
-          rule_json: JSON.stringify({
+          rule: {
             type: 'string',
             name: 'tripType',
             given: 'oneway'
-          })
+          }
         }
       ])
     td.when(fakeParamaterRepository.findByFeatureId(2))
       .thenResolve([
         {
-          rule_json: JSON.stringify({
+          rule: {
             type: 'list',
             name: 'country',
             presentIn: ['cl', 'br', 'ar']
-          })
+          }
         }
       ])
 

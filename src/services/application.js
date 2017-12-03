@@ -1,4 +1,4 @@
-import {map, pick} from 'ramda'
+import {map, pick, prop} from 'ramda'
 
 const applicationService = ({applicationRepository, featureRepository, parameterRepository}) => ({
   createDocumentById: createDocumentById.bind(null, {
@@ -26,10 +26,9 @@ const addParameters = (parameterRepository) => async (feature) => {
 
   return {
     ...pick(['name'], feature),
-    parameters: map(parseRuleJSON, parameters)
+    parameters: map(prop('rule'), parameters)
   }
 }
 
-const parseRuleJSON = ({rule_json}) => JSON.parse(rule_json)
-
 export {applicationService}
+
