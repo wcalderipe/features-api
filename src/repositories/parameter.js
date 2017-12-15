@@ -11,7 +11,7 @@ const specificFunctions = (knex) => ({
 })
 
 const findByFeatureId = async (knex, featureId) => {
-  const parameters = await knex(TABLE_NAME).where({feature_id: featureId})
+  const parameters = await knex(TABLE_NAME).where({featureId: featureId})
 
   return map(serialize, parameters)
 }
@@ -23,8 +23,8 @@ const findById = async (knex, id) => {
 }
 
 const serialize = (parameter) => ({
-  ...pick(['id', 'feature_id', 'created_at'], parameter),
-  rule: JSON.parse(parameter.rule_json)
+  ...pick(['id', 'featureId', 'createdAt'], parameter),
+  rule: JSON.parse(parameter.ruleJson)
 })
 
 const create = async (knex, data) => {
@@ -41,8 +41,8 @@ const update = (knex, id, data) => {
 }
 
 const deserialize = (data) => ({
-  ...pick(['feature_id'], data),
-  rule_json: JSON.stringify(data.rule)
+  ...pick(['featureId'], data),
+  ruleJson: JSON.stringify(data.rule)
 })
 
 const parameterRepository = (knex) => pipe(

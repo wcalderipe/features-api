@@ -19,12 +19,12 @@ describe('repository parameter', () => {
     await cleanTable(FEATURES_TABLE_NAME)
 
     featureId = await featureRepository(knex).create({
-      application_id: 999,
+      applicationId: 999,
       name: 'feature01'
     })
 
     parameterId = await parameterRepository(knex).create({
-      feature_id: featureId,
+      featureId,
       rule: {
         type: 'list',
         name: 'country',
@@ -39,7 +39,7 @@ describe('repository parameter', () => {
   })
 
   describe('findById', () => {
-    it('deserializes rule_json after select', async () => {
+    it('deserializes ruleJson after select', async () => {
       const parameter = await repository.findById(parameterId)
       const expectedRule = {
         type: 'list',
@@ -58,7 +58,7 @@ describe('repository parameter', () => {
       expect(parameters.length).to.equal(1)
     })
 
-    it('deserializes rule_json after select', async () => {
+    it('deserializes ruleJson after select', async () => {
       const [parameter] = await repository.findByFeatureId(featureId)
       const expectedRule = {
         type: 'list',
@@ -73,7 +73,7 @@ describe('repository parameter', () => {
   describe('create', () => {
     it('creates a new parameter and returns the id', async () => {
       const data = {
-        feature_id: featureId,
+        featureId,
         rule: {
           type: 'list',
           name: 'country',

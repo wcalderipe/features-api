@@ -30,12 +30,12 @@ describe('GET /toggles', () => {
     })
 
     const featureId = await featureRepository(knex).create({
-      application_id: applicationId,
+      applicationId: applicationId,
       name: 'feature01'
     })
 
     await parameterRepository(knex).create({
-      feature_id: featureId,
+      featureId: featureId,
       rule: {
         name: 'parameter01',
         type: 'always',

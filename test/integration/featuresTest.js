@@ -30,12 +30,12 @@ describe('features router', () => {
     })
 
     featureId = await featureRepository(knex).create({
-      application_id: applicationId,
+      applicationId,
       name: 'feature01'
     })
 
     await parameterRepository(knex).create({
-      feature_id: featureId,
+      featureId,
       rule: {}
     })
   })
@@ -60,7 +60,7 @@ describe('features router', () => {
           const feature = response.body
 
           expect(feature).to.have.property('id')
-          expect(feature).to.have.property('application_id')
+          expect(feature).to.have.property('applicationId')
           expect(feature).to.have.property('name')
         })
     })
@@ -86,7 +86,7 @@ describe('features router', () => {
 
   describe('POST /features', () => {
     const feature = {
-      application_id: applicationId,
+      applicationId,
       name: 'newFeature'
     }
 
@@ -112,7 +112,7 @@ describe('features router', () => {
 
     beforeEach(async () => {
       createdFeatureId = await featureRepository(knex).create({
-        application_id: applicationId,
+        applicationId: applicationId,
         name: 'featureToDelete'
       })
     })
@@ -144,7 +144,7 @@ describe('features router', () => {
         .send(feature)
         .then((response) => {
           expect(response.body).to.have.property('id')
-          expect(response.body).to.have.property('application_id')
+          expect(response.body).to.have.property('applicationId')
           expect(response.body).to.have.property('name')
         })
     })
