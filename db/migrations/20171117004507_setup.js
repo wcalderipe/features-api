@@ -6,7 +6,7 @@ exports.up = (knex, Promise) => Promise.all([
   }),
   knex.schema.createTable('features', (table) => {
     table.increments('id').primary()
-    table.integer('application_id').references('applications.id')
+    table.integer('applicationId').references('applications.id')
     table.string('name').notNullable()
     table.timestamp('createdAt').defaultTo(knex.fn.now())
   }),

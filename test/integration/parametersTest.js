@@ -30,7 +30,7 @@ describe('parameters router', () => {
     })
 
     featureId = await featureRepository(knex).create({
-      application_id: applicationId,
+      applicationId: applicationId,
       name: 'feature01'
     })
 

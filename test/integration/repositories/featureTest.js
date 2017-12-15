@@ -23,7 +23,7 @@ describe('repository feature', () => {
     })
 
     await featureRepository(knex).create({
-      application_id: applicationId,
+      applicationId: applicationId,
       name: 'feature01'
     })
   })

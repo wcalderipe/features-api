@@ -13,22 +13,22 @@ const features = (knex) => knex('features')
     .insert([
       {
         id: 1,
-        application_id: 1,
+        applicationId: 1,
         name: 'newHeader'
       },
       {
         id: 2,
-        application_id: 1,
+        applicationId: 1,
         name: 'callNewAPI'
       },
       {
         id: 3,
-        application_id: 1,
+        applicationId: 1,
         name: 'appEnable'
       },
       {
         id: 4,
-        application_id: 2,
+        applicationId: 2,
         name: 'appEnable'
       }
     ])

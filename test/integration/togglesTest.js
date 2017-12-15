@@ -30,7 +30,7 @@ describe('GET /toggles', () => {
     })
 
     const featureId = await featureRepository(knex).create({
-      application_id: applicationId,
+      applicationId: applicationId,
       name: 'feature01'
     })
 

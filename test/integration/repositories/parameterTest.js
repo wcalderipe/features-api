@@ -19,7 +19,7 @@ describe('repository parameter', () => {
     await cleanTable(FEATURES_TABLE_NAME)
 
     featureId = await featureRepository(knex).create({
-      application_id: 999,
+      applicationId: 999,
       name: 'feature01'
     })
 
