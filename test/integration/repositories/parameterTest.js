@@ -39,7 +39,7 @@ describe('repository parameter', () => {
   })
 
   describe('findById', () => {
-    it('deserializes rule_json after select', async () => {
+    it('deserializes ruleJson after select', async () => {
       const parameter = await repository.findById(parameterId)
       const expectedRule = {
         type: 'list',
@@ -58,7 +58,7 @@ describe('repository parameter', () => {
       expect(parameters.length).to.equal(1)
     })
 
-    it('deserializes rule_json after select', async () => {
+    it('deserializes ruleJson after select', async () => {
       const [parameter] = await repository.findByFeatureId(featureId)
       const expectedRule = {
         type: 'list',

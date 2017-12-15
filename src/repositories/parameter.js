@@ -24,7 +24,7 @@ const findById = async (knex, id) => {
 
 const serialize = (parameter) => ({
   ...pick(['id', 'featureId', 'createdAt'], parameter),
-  rule: JSON.parse(parameter.rule_json)
+  rule: JSON.parse(parameter.ruleJson)
 })
 
 const create = async (knex, data) => {
@@ -42,7 +42,7 @@ const update = (knex, id, data) => {
 
 const deserialize = (data) => ({
   ...pick(['featureId'], data),
-  rule_json: JSON.stringify(data.rule)
+  ruleJson: JSON.stringify(data.rule)
 })
 
 const parameterRepository = (knex) => pipe(
