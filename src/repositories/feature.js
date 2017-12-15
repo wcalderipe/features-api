@@ -11,7 +11,7 @@ const specificFunctions = (knex) => ({
 })
 
 const findByApplicationId = (knex, applicationId) =>
-  knex(TABLE_NAME).where({applicationId: applicationId})
+  knex(TABLE_NAME).where({applicationId})
 
 const featureRepository = (knex) => pipe(
   withFindById(knex, TABLE_NAME),

@@ -25,7 +25,7 @@ describe('applications router', () => {
     })
 
     await featureRepository(knex).create({
-      applicationId: applicationId,
+      applicationId,
       name: 'feature01'
     })
   })

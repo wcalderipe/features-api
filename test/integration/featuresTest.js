@@ -30,12 +30,12 @@ describe('features router', () => {
     })
 
     featureId = await featureRepository(knex).create({
-      applicationId: applicationId,
+      applicationId,
       name: 'feature01'
     })
 
     await parameterRepository(knex).create({
-      featureId: featureId,
+      featureId,
       rule: {}
     })
   })
@@ -86,7 +86,7 @@ describe('features router', () => {
 
   describe('POST /features', () => {
     const feature = {
-      applicationId: applicationId,
+      applicationId,
       name: 'newFeature'
     }
 
