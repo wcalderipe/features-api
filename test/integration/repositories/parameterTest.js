@@ -24,7 +24,7 @@ describe('repository parameter', () => {
     })
 
     parameterId = await parameterRepository(knex).create({
-      feature_id: featureId,
+      featureId: featureId,
       rule: {
         type: 'list',
         name: 'country',
@@ -73,7 +73,7 @@ describe('repository parameter', () => {
   describe('create', () => {
     it('creates a new parameter and returns the id', async () => {
       const data = {
-        feature_id: featureId,
+        featureId: featureId,
         rule: {
           type: 'list',
           name: 'country',

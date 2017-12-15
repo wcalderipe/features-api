@@ -40,7 +40,7 @@ const parameters = (knex) => knex('parameters')
     .insert([
       {
         id: 1,
-        feature_id: 1,
+        featureId: 1,
         rule_json: JSON.stringify({
           type: 'list',
           name: 'country',
@@ -49,7 +49,7 @@ const parameters = (knex) => knex('parameters')
       },
       {
         id: 2,
-        feature_id: 2,
+        featureId: 2,
         rule_json: JSON.stringify({
           type: 'string',
           name: 'tripType',
@@ -58,7 +58,7 @@ const parameters = (knex) => knex('parameters')
       },
       {
         id: 3,
-        feature_id: 3,
+        featureId: 3,
         rule_json: JSON.stringify({
           type: 'always',
           returns: true
@@ -66,7 +66,7 @@ const parameters = (knex) => knex('parameters')
       },
       {
         id: 4,
-        feature_id: 4,
+        featureId: 4,
         rule_json: JSON.stringify({
           type: 'always',
           returns: false

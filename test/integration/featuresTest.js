@@ -35,7 +35,7 @@ describe('features router', () => {
     })
 
     await parameterRepository(knex).create({
-      feature_id: featureId,
+      featureId: featureId,
       rule: {}
     })
   })

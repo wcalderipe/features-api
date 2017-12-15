@@ -12,7 +12,7 @@ exports.up = (knex, Promise) => Promise.all([
   }),
   knex.schema.createTable('parameters', (table) => {
     table.increments('id').primary()
-    table.integer('feature_id').references('features.id')
+    table.integer('featureId').references('features.id')
     table.text('rule_json').notNullable()
     table.timestamp('createdAt').defaultTo(knex.fn.now())
   })
