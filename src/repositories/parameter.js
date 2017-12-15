@@ -23,7 +23,7 @@ const findById = async (knex, id) => {
 }
 
 const serialize = (parameter) => ({
-  ...pick(['id', 'feature_id', 'created_at'], parameter),
+  ...pick(['id', 'feature_id', 'createdAt'], parameter),
   rule: JSON.parse(parameter.rule_json)
 })
 
